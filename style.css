@@ -5,3 +5,12 @@ September 2016 */
 body {
 	font-family: Open Sans, sans-serif;
 }
+.comment-1 {
+	margin: 20px 0px 0px 50px;
+}
+.comment-2 {
+	margin: 20px 0px 0px 100px;
+}
+.comment-3 {
+	margin: 20px 0px 0px 150px;
+}
