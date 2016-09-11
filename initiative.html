@@ -12,14 +12,26 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<header>
-		<p>Direct Colorado Logo</p>
-		<b>Navigation</b>
-		<p>Browse</p>
-		<p>Search</p>
-		<p>My Initiatives</p>
-		<p>Profile Pic (Profile, Settings, Logout)</p>
-	</header>
+	<nav class="navbar">
+		<div class="navbar-brand">Direct CO Logo</div>
+		<ul class="nav navbar-nav">
+			<li>Browse</li>
+			<li>Search</li>
+			<li>My Initiatives</li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/profile.png" alt="profile-pic" /> <span class="caret"></span></a>
+		        <ul class="dropdown-menu">
+		            <li><a href="#">Action</a></li>
+		            <li><a href="#">Another action</a></li>
+		            <li><a href="#">Something else here</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">Separated link</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="#">One more separated link</a></li>
+		        </ul>
+			</li>
+		</ul>
+	</nav>
 	<h1>Ballot Initiative</h1>
 	<p>Description of ballot initiative.</p>
 </body>
