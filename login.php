@@ -1,0 +1,106 @@
+<?php
+/* login.php:
+	will login user with the following credentials from $_POST:
+		username
+		email
+		password
+	Checks to see if the user exists
+	Checks to see if password matches password passed to the
+	It will then redirect to the 'initiative' page
+
+	Jake Turelli
+	Sept 11, 2016
+*/
+require_once( '../includes/connection.php');
+session_start();
+session_unset ();
+
+$username  = $_POST['username'];
+$email     = $_POST['email'];
+$password  = $_POST['password'];
+
+// THROW ALERT ERROR IF USERNAME INCLUDES SPECIAL CHARACTERS
+$SPECIAL_CHARACTERS = "/[\'^£$%&*()}{#~?><>,|=_+¬-]/";
+if(preg_match($SPECIAL_CHARACTERS, $username) ){
+	echo "<script>alert('No special characters allowed.');
+				 window.location.href='index.php';
+					</script>";
+}
+
+
+if($_POST['loginform']) {
+	$query = "SELECT * FROM `user` WHERE `user`.`username` LIKE '$username'";
+	$result = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+	
+	// IF USERNAME IS VALID, CHECK PASSWORD
+	if (mysqli_num_rows($result)!=0){
+		$user = mysqli_fetch_array($result);
+		$pswd_hash2compare = $user['password'];
+
+		// IF PASSWORD MATCHES, LOG USER IN
+		if(password_verify($pswd,$pswd_hash2compare )){
+			$user_id = $user['id'];
+
+			// UPDATE SESSION VARIABLES
+			$_SESSION['IS_LOGGED_IN'] = TRUE;
+			$_SESSION['USER_ID'] =  $user_id;
+			$_SESSION['USERNAME'] = $user['username'];
+
+			// UPDATE USER LOGGED IN STATUS ON THE DATABASE
+			$query =  "UPDATE `user` SET `isloggedin` = 1 WHERE `user`.`id` = $user_id";
+			$result = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+
+			// WELCOME USER AND REDIRECT TO INITIATIVE PAGE
+			echo '<script>alert("Welcome, ' . $username . '");
+			 window.location.href="initiative.html";
+				</script>';
+			}
+		}else{
+			// ERROR: INCORRECT PASSWORD
+			echo "<script>alert('Password incorrect.');
+				 window.location.href='index.php';
+					</script>";
+		}
+
+	}else{
+		// ERROR: INVALID USERNAME
+		echo "<script>alert('Invalid username.');
+				 window.location.href='index.php';
+					</script>";
+	}
+} else {
+	// ERROR: NO LOGINFORM WAS PASSED BY $_POST
+	echo "<script>alert('How did you get here?.');
+				 window.location.href='index.php';
+					</script>";
+
+}
+
+
+
+
+
+// SIGN UP LOGIC:
+/*
+	$query = "SELECT * FROM `user` WHERE `username` LIKE '$username'";
+	$checkUsername = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+
+	$query = "SELECT * FROM `user` WHERE `email` LIKE '$email'";
+	$checkEmail = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+
+	// CHECK IF USERNAME EXISTS
+	if (mysqli_num_rows($checkUsername)!=0){
+		echo "<script>alert('Username already exists.');
+				 window.location.href='index.php';
+					</script>";
+	// CHECK IF EMAIL HAS BEEN USED
+	}elseif(mysqli_num_rows($checkEmail)!=0){
+		echo "<script>alert('This email has already been used.');
+				 window.location.href='index.php';
+					</script>";
+	// USERNAME AND EMAIL ARE FREE
+	}else{
+
+	}
+*/
+?>
