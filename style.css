@@ -3,13 +3,20 @@ Kacy McKibben & Jake Turelli
 September 2016 */
 
 body {
+	color: #161616;
 	font-family: Open Sans, sans-serif;
 }
 nav.navbar {
 	margin-bottom: 0px;
 }
+a {
+	color: #161616;
+}
 .text {
 	padding: 15px 5px 15px 15px;
+}
+.glyphicon {
+	color: #6E7FA6;
 }
 .btn {
 	background-color: #1E3362;
@@ -33,6 +40,10 @@ nav.navbar {
 .navbar-nav > li > a {
 	color: #161616;
 }
+.active {
+	font-weight: 600;
+}
+
 .secondary-navbar {
 	background-color: #F4F5F7;
 }
@@ -41,13 +52,22 @@ nav.navbar {
 	width: 20px;
 }
 
-/*=== Browse ===*/
+/*--- like/dislike ---*/
+.radio input {
+	visibility: hidden;
+	position: absolute;
+}
+.radio input:checked {
+	color: #000;
+}
+
+/*=== Browse Page ===*/
 
 .home-initiative {
 	padding: 10px;
 }
 
-/*=== Initiative ===*/
+/*=== Initiative Page ===*/
 
 .initiative {
 	padding: 25px 0px 15px 0px;
