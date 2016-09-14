@@ -11,6 +11,28 @@ nav.navbar {
 .text {
 	padding: 15px 5px 15px 15px;
 }
+.btn {
+	background-color: #1E3362;
+	color: #fff;
+}
+.btn:hover {
+	background-color: #344771;
+	color: #fff;
+}
+.btn-ltblue {
+	background-color: #6E7FA6;
+	color: #fff;
+}
+.btn-ltblue:hover {
+	background-color: #8B98B7;
+	color: #fff;
+}
+
+/*=== navbar ===*/
+
+.navbar-nav > li > a {
+	color: #161616;
+}
 .secondary-navbar {
 	background-color: #F4F5F7;
 }

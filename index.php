@@ -61,7 +61,7 @@ include('getSession.php');
 					<input type="password" class="form-control" name="password" autocomplete="new-password" value="">
 				</fieldset>
 				<fieldset class="form-group">
-					<input type="submit" class="btn btn-wide" name="login" value="LOGIN">
+					<input type="submit" class="btn" name="login" value="LOGIN">
 				</fieldset>
 				<!-- <div class="border"></div>
 				<fieldset class="form-group form-inline">
@@ -89,7 +89,7 @@ include('getSession.php');
 					<input type="password" id="pass2" class="form-control" value="" onChange="checkPw();">
 				</fieldset>
 				<fieldset class="form-group">
-					<input type="submit" class="btn btn-wide" name="signup" value="SIGN UP">
+					<input type="submit" class="btn btn-ltblue" name="signup" value="SIGN UP">
 				</fieldset>
 			</form>
 		</div>
