@@ -60,7 +60,7 @@
 		                    <label for="comment">Your Comment</label>
 		                    <textarea name="comment" class="form-control" rows="2"></textarea>
 		                </div>
-		                <button type="submit" class="btn btn-default">Save</button>
+		                <button type="submit" class="btn btn-ltblue">Save</button>
 	                </form>
 					<br>
 					<div class="pull-right"> 
@@ -82,7 +82,6 @@
 					<small>Username </small><small>Date Posted</small>
 					<p>Comment 1 with a child. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum. <a href="#">Read more</a></p>
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 					<span>
                         <a class="" role="button" data-toggle="collapse" href="#reply1" aria-expanded="false" aria-controls="reply1">Reply</a>
@@ -93,7 +92,7 @@
 			                    <label for="comment">Your Comment</label>
 			                    <textarea name="comment" class="form-control" rows="2"></textarea>
 			                </div>
-			                <button type="submit" class="btn btn-default">Save</button>
+			                <button type="submit" class="btn btn-ltblue">Save</button>
 			                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls="reply1"><button type="submit" class="btn btn-default">Cancel</button></a>
 		                </form>
 		            </div>
@@ -114,7 +113,6 @@
 						<small>Username </small><small>Date Posted</small>
 						<p>Comment 2 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
 						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-						<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 						<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 						<span>
 	                        <a class="" role="button" data-toggle="collapse" href="#reply2" aria-expanded="false" aria-controls="reply2">Reply</a>
@@ -125,7 +123,7 @@
 				                    <label for="comment">Your Comment</label>
 				                    <textarea name="comment" class="form-control" rows="2"></textarea>
 				                </div>
-				                <button type="submit" class="btn btn-default">Save</button>
+				                <button type="submit" class="btn btn-ltblue">Save</button>
 				                <a href="#reply2" data-toggle="collapse" aria-expanded="false" aria-controls="reply2"><button type="submit" class="btn btn-default">Cancel</button></a>
 			                </form>
 			            </div>
@@ -146,7 +144,6 @@
 							<small>Username </small><small>Date Posted</small>
 							<p>Comment 3 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
 							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-							<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 							<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 							<span>
 		                        <a class="" role="button" data-toggle="collapse" href="#reply3" aria-expanded="false" aria-controls="reply3">Reply</a>
@@ -157,7 +154,7 @@
 					                    <label for="comment">Your Comment</label>
 					                    <textarea name="comment" class="form-control" rows="2"></textarea>
 					                </div>
-					                <button type="submit" class="btn btn-default">Save</button>
+					                <button type="submit" class="btn btn-ltblue">Save</button>
 					                <a href="#reply3" data-toggle="collapse" aria-expanded="false" aria-controls="reply3"><button type="submit" class="btn btn-default">Cancel</button></a>
 				                </form>
 				            </div>
@@ -178,7 +175,6 @@
 								<small>Username </small><small>Date Posted</small>
 								<p>Comment 4 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
 								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 								<span>
 			                        <a class="" role="button" data-toggle="collapse" href="#reply4" aria-expanded="false" aria-controls="reply4">Reply</a>
@@ -189,7 +185,7 @@
 						                    <label for="comment">Your Comment</label>
 						                    <textarea name="comment" class="form-control" rows="2"></textarea>
 						                </div>
-						                <button type="submit" class="btn btn-default">Save</button>
+						                <button type="submit" class="btn btn-ltblue">Save</button>
 						                <a href="#reply4" data-toggle="collapse" aria-expanded="false" aria-controls="reply4"><button type="submit" class="btn btn-default">Cancel</button></a>
 					                </form>
 					            </div>
