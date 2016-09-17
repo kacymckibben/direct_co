@@ -61,6 +61,52 @@ a {
 	color: #000;
 }
 
+/*input[type='checkbox'].thumbs-up + label:before,
+input[type='checkbox'].thumbs-up + label:after {
+	color:#000;
+	font-family: 'Glyphicons Halflings';
+	font-family: bold;
+}
+input[type='checkbox'].thumbs-up + label:before {
+	content: "\e125";
+}
+input[type='checkbox']:checked.thumbs-up + label:before {
+	content: "\e126";
+}*/
+
+/*input[type='checkbox'].thumbs-up + label:before{
+	position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+input[type='checkbox'].thumbs-up + label:before{
+	color: #999;
+    content: "\e125";
+}
+input[type='checkbox']:checked.thumbs-up + label:before{
+	color: #000;
+    content: "\e125";
+    font-weight: 800;
+}*/
+
+.glyphicon-thumbs-up:before{
+    content:"\e125"; 
+    color: #7f8c8d; 
+    opacity: 0.7;
+}
+
+.glyphicon-thumbs-up.tst:before{
+    content:"\e125"; 
+    color: green; 
+
+}
+
 /*=== Browse Page ===*/
 
 .home-initiative {
