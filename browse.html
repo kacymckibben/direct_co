@@ -50,6 +50,31 @@
 			<div class="row">
 				<div class="col-sm-2">
 					<div>
+						<input 
+  type="radio" name="emotion" 
+  id="sad" class="input-hidden" onclick="validate()" />
+<label for="sad">
+  <img 
+    src="//placekitten.com/150/150" 
+    alt="I'm sad" />
+</label>
+
+<input 
+  type="radio" name="emotion"
+  id="happy" class="input-hidden" />
+<label for="happy">
+  <img 
+    src="//placekitten.com/151/151" 
+    alt="I'm happy" />
+</label>
+						<fieldset>
+							
+							<label for="radioa"><input type="radio" name="radio_group" id="radioa">radio a</label>
+							<br>
+							
+							<label for="radiob"><input type="radio" name="radio_group" id="radiob">radio b</label>
+						</fieldset>
+						
 						<ul class="vote">
 							<li class="vote_item">
 								<input class="vote_control" type="radio" name="vote1" id="upvote1">
@@ -65,7 +90,7 @@
 							</li>
 						</ul>
 					</div>
-					<div>
+					 <div>
 						<input type="checkbox" id="checkbox-1" class="thumbs-up sr-only">
 						<label for="checkbox-1" class="thumbs-up-label"> 124 Likes</label>
 						
@@ -119,24 +144,79 @@
 					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<script type="text/javascript">
-	$(".glyphicon").click(function () {
-    var socialButton = $(this).attr('id');
-    //traverse the dom up until I get to this post's text. Get the text from the post
-    var thisPost = $(this).parent().parent().text();
-    //get the user name of the post
-    var user = $(this).parent().parent().parent().text();
-    var obj = $(this);
-    if ($(this).hasClass('thumbs-up-checked')) {
+// 	$(".glyphicon").click(function () {
+//     var socialButton = $(this).attr('id');
+//     //traverse the dom up until I get to this post's text. Get the text from the post
+//     var thisPost = $(this).parent().parent().text();
+//     //get the user name of the post
+//     var user = $(this).parent().parent().parent().text();
+//     var obj = $(this);
+//     if ($(this).hasClass('thumbs-up-checked')) {
     	
-    }
-obj.toggleClass("tst");
-            alert("success")
+//     }
+// obj.toggleClass("tst");
+//             alert("success")
+    // if $('#upvote1').prop('checked', true) {
+    // 	$('#upvote1').prop('checked', false);
+    // }
+    // else {
 
-
-    // $.ajax({
+    // }
+$(document).ready(function(){ 
+// function validate() {
+// 	if(document.getElementById('sad').checked) {
+// 		alert("checked");
+// 	}
+// })
+    $(function(){
+                        var allRadios = $('input[type=radio]')
+                        var radioChecked;
+                        
+                        var setCurrent = 
+                                        function(e) {
+                                            var obj = e.target;
+                             
+                                            radioChecked = $(obj).attr('checked');
+                                     }
+                                                
+                        var setCheck = 
+                                    function(e) {
+                                        
+                                        if (e.type == 'keypress' && e.charCode != 32) {
+                                            return false;
+                                        }
+                                        
+                                        var obj = e.target;
+                                        
+                             if (radioChecked) {
+                             $(obj).attr('checked', false);
+                             } else {
+                             $(obj).attr('checked', true);
+                             }
+                                 }    
+                                                 
+                        $.each(allRadios, function(i, val){        
+                             var label = $('label[for=' + $(this).attr("id") + ']');
+                             
+                         $(this).bind('mousedown keydown', function(e){
+                                setCurrent(e);
+                            });
+                            
+                            label.bind('mousedown keydown', function(e){
+                                e.target = $('#' + $(this).attr("for"));
+                                setCurrent(e);
+                            });
+                         
+                         $(this).bind('click', function(e){
+                                setCheck(e);    
+                            });
+                         
+                        });
+            });
+    //$.ajax({
     //     type: "POST",
     //     dataType: "json",
     //     url: "socialbuttons.php",
