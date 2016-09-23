@@ -61,6 +61,83 @@ a {
 	color: #000;
 }
 
+.vote {
+	float: left;
+	width: 72px;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.vote_item {
+	float: left;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	width: 36px;
+	height: 36px;
+}
+.vote_control {
+	z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	margin: 0;
+	line-height: 1;
+	opacity: 0;
+}
+.vote_content {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+}
+.vote_label {
+	position: relative;
+	margin: 0;
+	width: 36px;
+	height: 36px;
+	display: block;
+	color: transparent;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	background-image: url(vote.svg);
+	background-repeat: no-repeat;
+	background-size: 72px 72px;
+}
+.vote_label--upvote {
+	border-radius: 3px 0 0 3px;
+	background-position: 0 0;
+}
+.vote_label--downvote {
+	border-radius: 0 3px 3px 0;
+	border-left: 0;
+	background-position: 0 -36px;
+}
+.vote_control:focus + .vote_label,
+.vote_control:hover + .vote_label,
+.vote_control:disabled + .vote_label,
+.vote_control:checked:focus + .vote_label,
+.vote_control:checked:hover + .vote_label,
+.vote_control:checked:disabled + .vote_label {
+	background-color: #eee;
+}
+.vote_control:checked + .vote_label--upvote {
+	background-position: -36px 0;
+}
+.vote_control:checked + .vote_label--downvote {
+	background-position: -36px -36px;
+}
+.vote_control:disabled {
+	
+}
 /*input[type='checkbox'].thumbs-up + label:before,
 input[type='checkbox'].thumbs-up + label:after {
 	color:#000;
