@@ -49,79 +49,9 @@
 		<div class="home-initiative">
 			<div class="row">
 				<div class="col-sm-2">
-					<div>
-						<!-- LikeBtn.com BEGIN 
-<span class="likebtn-wrapper" data-theme="transparent" data-white_label="true" data-identifier="item_1" data-show_like_label="false" data-counter_clickable="true"></span>
-<script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
-<!-- LikeBtn.com END -->
-						<!-- <input 
-						  type="radio" name="emotion" 
-						  id="sad" class="input-hidden" onclick="validate()" />
-						<label for="sad">
-						  <img 
-						    src="img/Like.png" 
-						    alt="I'm sad" />
-						</label>
-
-						<input 
-						  type="radio" name="emotion"
-						  id="happy" class="input-hidden" />
-						<label for="happy">
-						  <img 
-						    src="img/Dislike.png" 
-						    alt="I'm happy" />
-						</label>
-						<ul class="vote">
-							<li class="vote_item">
-								<input class="input-hidden" type="radio" name="vote1" id="upvote1" onclick="validate()">
-								<label class="vote_label vote_label--upvote" for="upvote1">
-									<span class="glyphicon glyphicon-thumbs-up">Upvote</span>
-								</label>
-							</li>
-							<li class="vote_item">
-								<input class="input-hidden" type="radio" name="vote1" id="downvote1" onclick="validate()">
-								<label class="vote_label vote_label--downvote" for="downvote1">
-									<span class="glyphicon glyphicon-thumbs-down">Downvote</span>
-								</label>
-							</li>
-						</ul>
-						<fieldset>
-							
-							<label for="radioa"><input type="radio" name="radio_group" id="radioa">radio a</label>
-							<br>
-							
-							<label for="radiob"><input type="radio" name="radio_group" id="radiob">radio b</label>
-						</fieldset>
-						
-						<ul class="vote">
-							<li class="vote_item">
-								<input class="vote_control" type="radio" name="vote1" id="upvote1">
-								<label class="vote_label vote_label--upvote" for="upvote1">
-									<span class="vote_content">Upvote</span>
-								</label>
-							</li>
-							<li class="vote_item">
-								<input class="vote_control" type="radio" name="vote1" id="downvote1">
-								<label class="vote_label vote_label--downvote" for="downvote1">
-									<span class="vote_content">Downvote</span>
-								</label>
-							</li>
-						</ul>
-					</div> -->
-					 <div>
-						<input type="checkbox" id="checkbox-1" class="thumbs-up sr-only">
-						<label for="checkbox-1" class="thumbs-up-label"> 124 Likes</label>
-						
-					</div>
-
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"></span> </a>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"></span></a>
-
-					<div class="radio">
-						<label><span class="glyphicon glyphicon-thumbs-down"></span><input type="radio" name="optradio"> 35 Dislikes</label>
-					</div>
-					<a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><p class="num-likes"> 124 Likes</p></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span><p class="num-likes"> 35 Dislikes</p></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 124 Likes</span></a>
+					<br>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 35 Dislikes</span></a>
 					<p>Total 159</p>
 				</div>
 				<div class="col-sm-10">
@@ -129,15 +59,16 @@
 					<a href="initiative.html"><h4>Ballot Initiative Title</h4></a><a class="initiative-website" href="#"><small>Initiative Website</small></a>
 					<a href="initiative.html"><p>Short description of ballot initiative. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p></a>
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+					<a href="#"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#sharemodal" aria-hidden="true"></span></a>
 				</div>
 			</div>
 		</div>
 		<div class="home-initiative">
 			<div class="row">
 				<div class="col-sm-2">
-					<a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><p class="num-likes"> 110 Likes</p></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span><p class="num-likes"> 46 Dislikes</p></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 110 Likes</span></a>
+					<br>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 46 Dislikes</span></a>
 					<p>Total 156</p>
 				</div>
 				<div class="col-sm-10">
@@ -152,9 +83,10 @@
 		<div class="home-initiative">
 			<div class="row">
 				<div class="col-sm-2">
-					<a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><p class="num-likes"> 96 Likes</p></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span><p class="num-likes"> 23 Dislikes</p></a>
-					<p>Total 119</p>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 92 Likes</span></a>
+					<br>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 20 Dislikes</span></a>
+					<p>Total 112</p>
 				</div>
 				<div class="col-sm-10">
 					<small>Username </small><small>Date Posted</small>
@@ -166,114 +98,44 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="ShareModal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button>Email</button>
+					<button>Tweet</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 	$(".glyphicon").click(function () {
-    var socialButton = $(this).attr('id');
-    //traverse the dom up until I get to this post's text. Get the text from the post
-    var thisPost = $(this).parent().parent().text();
-    //get the user name of the post
-    var user = $(this).parent().parent().parent().text();
-    var obj = $(this);
-
-    if ($(this).hasClass('glyphicon-thumbs-up')) {
-    	obj.toggleClass("tst");
-    
-        if (document.getElementById("disliked").classList.contains('tst')) {
-        	var disliked = document.getElementById("disliked");
-        	$(disliked).removeClass("tst");
-        }
-    }
-    
-    else{
-		obj.toggleClass("tst");
-	
-		if (document.getElementById("liked").classList.contains('tst')) {
-			var liked = document.getElementById("liked");
-			$(liked).removeClass("tst");
-		}
-    } 
-  //   ($((this).hasClass('thumbs-down-checked')) {
-		// obj.toggleClass("tst");
-		//     alert("woot")
-  //   }
-    
-
-
-    // if $('#upvote1').prop('checked', true) {
-    // 	$('#upvote1').prop('checked', false);
-    // }
-    // else {
-
-    // }
-// $(document).ready(function(){ 
-// // function validate() {
-// // 	if(document.getElementById('sad').checked) {
-// // 		alert("checked");
-// // 	}
-// // })
-//     $(function(){
-//                         var allRadios = $('input[type=radio]')
-//                         var radioChecked;
-                        
-//                         var setCurrent = 
-//                                         function(e) {
-//                                             var obj = e.target;
-                             
-//                                             radioChecked = $(obj).attr('checked');
-//                                      }
-                                                
-//                         var setCheck = 
-//                                     function(e) {
-                                        
-//                                         if (e.type == 'keypress' && e.charCode != 32) {
-//                                             return false;
-//                                         }
-                                        
-//                                         var obj = e.target;
-                                        
-//                              if (radioChecked) {
-//                              $(obj).attr('checked', false);
-//                              } else {
-//                              $(obj).attr('checked', true);
-//                              }
-//                                  }    
-                                                 
-//                         $.each(allRadios, function(i, val){        
-//                              var label = $('label[for=' + $(this).attr("id") + ']');
-                             
-//                          $(this).bind('mousedown keydown', function(e){
-//                                 setCurrent(e);
-//                             });
-                            
-//                             label.bind('mousedown keydown', function(e){
-//                                 e.target = $('#' + $(this).attr("for"));
-//                                 setCurrent(e);
-//                             });
-                         
-//                          $(this).bind('click', function(e){
-//                                 setCheck(e);    
-//                             });
-                         
-//                         });
-//             });
-    //$.ajax({
-    //     type: "POST",
-    //     dataType: "json",
-    //     url: "socialbuttons.php",
-    //     data: {
-    //         button: socialButton,
-    //         post: thisPost,
-    //         postAuthor: user
-    //     },
-    //     success: function (data) {
-    //         obj.toggleClass("tst");
-    //         alert("success") //this works
-    //             //$("#liked").toggleClass("tst"); //works, but only on first post
-
-    //     }
-    // })
-
-})
+	    var obj = $(this);
+	    if ($(this).hasClass('glyphicon-thumbs-up')) {
+	    	obj.toggleClass("tst");
+	    
+	        if (document.getElementById("disliked").classList.contains('tst')) {
+	        	var disliked = document.getElementById("disliked");
+	        	$(disliked).removeClass("tst");
+	        }
+	    }
+	    else {
+			obj.toggleClass("tst");
+		
+			if (document.getElementById("liked").classList.contains('tst')) {
+				var liked = document.getElementById("liked");
+				$(liked).removeClass("tst");
+			}
+	    } 
+	})
+	$(".glyphicon-bookmark").click(function () {
+		var obj = $(this);
+		obj.toggleClass("marked");
+	})
+	$(".glyphicon-share-alt").click(function () {
+		var obj = $(this);
+		obj.toggleClass("marked");
+	})
 	</script>
 </body>
 </html>

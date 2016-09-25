@@ -206,6 +206,22 @@ input[type='checkbox']:checked.thumbs-up + label:before{
     color: #ff0000; 
     opacity: 1;
 }
+.glyphicon-bookmark:before {
+	content: "\e044";
+	opacity: 0.5;
+}
+.glyphicon-bookmark.marked:before {
+	content: "\e044";
+	opacity: 1;
+}
+.glyphicon-share-alt:before {
+	content: "\e095";
+	opacity: 0.5;
+}
+.glyphicon-share-alt.marked:before {
+	content: "\e095";
+	opacity: 1;
+}
 
 /*=== Browse Page ===*/
 
