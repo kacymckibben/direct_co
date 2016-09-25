@@ -64,7 +64,7 @@ if($_POST['signup']) {
 
 		// REDIRECT TO INITIATIVE PAGE
 		echo "<script>alert('Welcome to Direct Colorado!');
-				 window.location.href='initiative.html';
+				 window.location.href='browse.html';
 					</script>";
 	}
 	

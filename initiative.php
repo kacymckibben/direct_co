@@ -1,3 +1,6 @@
+<?php
+include('getSession.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,24 +13,36 @@
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js_functions.js"></script>
 </head>
 <body>
 	<nav class="navbar">
 		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">Browse</a></li>
+			<li><a href="browse.html">Browse</a></li>
 			<li><a href="#">Search</a></li>
-			<li><a href="#">Start Initiative</a></li>
-			<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
-			<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="profile-pic" src="img/profile.png" alt="profile-pic" /> <span class="caret"></span></a>
-		        <ul class="dropdown-menu">
-		            <li><a href="#">Profile</a></li>
-		            <li><a href="#">Notifications</a></li>
-		            <li><a href="#">Logout</a></li>
-		        </ul>
-			</li>
+			<?php
+			if($IS_LOGGED_IN){
+			?>
+				<li><a href="#">Start Initiative</a></li>
+				<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
+				<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="profile-pic" src="img/profile.png" alt="profile-pic" /> <span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			            <li><a href="#">Profile</a></li>
+			            <li><a href="#">Notifications</a></li>
+			            <li><a href="logout.php">Logout</a></li>
+			        </ul>
+				</li>
+			<?php
+			}else{
+			?>
+				<li><a href="#">Sign up</a></li>
+				<li><a href="#">Login</a></li>
+			<?php
+			}
+			?>
 		</ul>
 	</nav>
 	<nav class="navbar secondary-navbar">

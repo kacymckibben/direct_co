@@ -54,7 +54,7 @@ include('getSession.php');
 				</fieldset>
 				<fieldset class="form-group">
 					<label>Email</label>
-					<input type="email" class="form-control" name="email" autocomplete="new-password" value="">
+					<input type="email" class="form-control" name="email" autocomplete="off" value="">
 				</fieldset>
 				<fieldset class="form-group">
 					<label>Password</label>
