@@ -7,18 +7,23 @@ $initiativeQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " .
 $INITIATIVES = array();
 while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	$ind =  $row['id'];
-	$INITIATIVES[$ind]['id']            = $row['id'];
-	$INITIATIVES[$ind]['creator_id']    = $row['creator_id']; 
-	$INITIATIVES[$ind]['rank']          = $row['rank'];      	
-	$INITIATIVES[$ind]['upvotes']       = $row['upvotes'];  	
-	$INITIATIVES[$ind]['downvotes']     = $row['downvotes']; 	
-	$INITIATIVES[$ind]['netvotes']      = $row['netvotes']; 	
-	$INITIATIVES[$ind]['ishidden']      = $row['ishidden']; 	
-	$INITIATIVES[$ind]['title']         = $row['title'];			
-	$INITIATIVES[$ind]['description']   = $row['description'];
-	$INITIATIVES[$ind]['page_id']       = $row['page_id']; 	
-	$INITIATIVES[$ind]['www']           = $row['www']; 		
-	$INITIATIVES[$ind]['creation_time'] = $row['creation_time'];
+	$INITIATIVES[$ind]['id']            	= $row['id'];
+	$INITIATIVES[$ind]['creator_id']    	= $row['creator_id']; 
+	$INITIATIVES[$ind]['rank']          	= $row['rank'];      	
+	$INITIATIVES[$ind]['upvotes']       	= $row['upvotes'];  	
+	$INITIATIVES[$ind]['downvotes']     	= $row['downvotes']; 	
+	$INITIATIVES[$ind]['netvotes']     	 	= $row['netvotes']; 	
+	$INITIATIVES[$ind]['ishidden']      	= $row['ishidden']; 	
+	$INITIATIVES[$ind]['title']         	= $row['title'];			
+	$INITIATIVES[$ind]['description']   	= $row['description'];
+	$INITIATIVES[$ind]['page_id']       	= $row['page_id']; 	
+	$INITIATIVES[$ind]['www']           	= $row['www']; 		
+	$INITIATIVES[$ind]['creation_time'] 	= $row['creation_time'];
+	$creator_id = $row['creator_id']; 
+	$query = "SELECT * FROM user WHERE id = $creator_id";
+	$userQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+	$creator = mysqli_fetch_array($userQuery);
+	$INITIATIVES[$ind]['creator_username']	= $creator['username'];  
 }
 ?>
 <!DOCTYPE html>
@@ -71,79 +76,42 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	<div class="container">
 		<?php
 		// POPULATE INITIATIVES
-
 		foreach($INITIATIVES as $initiative){
-			$id = $initiative['id'];        
-			$initiative['creator_id'];   
-			$initiative['rank'];         
-			$initiative['upvotes'];      
-			$initiative['downvotes'];    
-			$initiative['netvotes'];     
-			$initiative['ishidden'];     
-			$initiative['title'];        
-			$initiative['description'];  
-			$initiative['page_id'];      
-			$initiative['www'];          
-			$initiative['creation_time'];
-
+			$id 				= $initiative['id'];        
+			$creator_id			= $initiative['creator_id'];   
+			$creator_username 	= $initiative['creator_username'];   
+			$rank				= $initiative['rank'];         
+			$upvotes 			= $initiative['upvotes'];      
+			$downvotes 			= $initiative['downvotes'];    
+			$netvotes 			= $initiative['netvotes'];     
+			$ishidden 			= $initiative['ishidden'];     
+			$title 				= $initiative['title'];        
+			$description		= $initiative['description'];  
+			$page_id			= $initiative['page_id'];      
+			$www				= $initiative['www'];          
+			$creation_time		= $initiative['creation_time'];
+			?>
+			<div class="home-initiative">
+				<div class="row">
+					<div class="col-sm-2">
+						<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> <?php echo $upvotes;?> Likes</span></a>
+						<br>
+						<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> <?php echo $downvotes;?> Dislikes</span></a>
+						<p>Total <?php echo $netvotes;?></p>
+					</div>
+					<div class="col-sm-10">
+						<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
+						<a href="initiative.php"><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
+						<a href="initiative.php"><p><?php echo $description;?></p></a>
+						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
+						<a href="#"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#sharemodal" aria-hidden="true"></span></a>
+					</div>
+				</div>
+			</div>
+		<?php
 		}
-
 		?>
-
-
-		<div class="home-initiative">
-			<div class="row">
-				<div class="col-sm-2">
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 124 Likes</span></a>
-					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 35 Dislikes</span></a>
-					<p>Total 159</p>
-				</div>
-				<div class="col-sm-10">
-					<small>Username </small><small>Date Posted</small>
-					<a href="initiative.php"><h4>Ballot Initiative Title</h4></a><a class="initiative-website" href="#"><small>Initiative Website</small></a>
-					<a href="initiative.php"><p>Short description of ballot initiative. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p></a>
-					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#sharemodal" aria-hidden="true"></span></a>
-				</div>
-			</div>
-		</div>
-		<div class="home-initiative">
-			<div class="row">
-				<div class="col-sm-2">
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 110 Likes</span></a>
-					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 46 Dislikes</span></a>
-					<p>Total 156</p>
-				</div>
-				<div class="col-sm-10">
-					<small>Username </small><small>Date Posted</small>
-					<h4>Another Ballot Initiative Title</h4><a class="initiative-website" href="#"><small>Initiative Website</small></a>
-					<p>Short description of ballot initiative. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-				</div>
-			</div>
-		</div>
-		<div class="home-initiative">
-			<div class="row">
-				<div class="col-sm-2">
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 92 Likes</span></a>
-					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 20 Dislikes</span></a>
-					<p>Total 112</p>
-				</div>
-				<div class="col-sm-10">
-					<small>Username </small><small>Date Posted</small>
-					<h4>Another Ballot Initiative Title</h4><a class="initiative-website" href="#"><small>Initiative Website</small></a>
-					<p>Short description of ballot initiative. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-				</div>
-			</div>
-		</div>
 	</div>
-
 	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="ShareModal" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
