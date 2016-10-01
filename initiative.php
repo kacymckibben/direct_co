@@ -107,16 +107,10 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 		<div class="initiative">
 			<div class="row">
 				<div class="col-sm-2">
-<<<<<<< HEAD
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> <span class="like-font">124 Likes</span></span></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
 					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> <span class="like-font">35 Dislikes</span></span></a>
-					<p>Total 159</p>
-=======
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
 					<p>Total <?php echo $INITIATIVE['netvotes'];?></p>
->>>>>>> origin/master
 				</div>
 				<div class="col-sm-10">
 					<small><?php echo $CREATOR['username'];?></small><small><?php echo date('Y-m-d h:i:s',$INITIATIVE['creation_time']);?></small>
