@@ -44,8 +44,9 @@
 		<div class="initiative">
 			<div class="row">
 				<div class="col-sm-2">
-					<a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><p class="num-likes"> 124 Likes</p></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span><p class="num-likes"> 35 Dislikes</p></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 124 Likes</span></a>
+					<br>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 35 Dislikes</span></a>
 					<p>Total 159</p>
 				</div>
 				<div class="col-sm-10">
@@ -74,9 +75,9 @@
 		<div class="comment-1">
 			<div class="row">
 				<div class="col-sm-2 text-center">
-					<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+					<a href="#"><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
 					<span>Net 89</span>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+					<a class="dislike" href="#"><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></a>
 				</div>
 				<div class="col-sm-10">
 					<small>Username </small><small>Date Posted</small>
@@ -344,6 +345,49 @@
     $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
 
 });
+	$(".glyphicon").click(function () {
+	    var obj = $(this);
+	    if ($(this).hasClass('glyphicon-thumbs-up')) {
+	    	obj.toggleClass("tst");
+	    
+	        if (document.getElementById("disliked").classList.contains('tst')) {
+	        	var disliked = document.getElementById("disliked");
+	        	$(disliked).removeClass("tst");
+	        }
+	    }
+	    else if($(this).hasClass('glyphicon-thumbs-down')) {
+			obj.toggleClass("tst");
+		
+			if (document.getElementById("liked").classList.contains('tst')) {
+				var liked = document.getElementById("liked");
+				$(liked).removeClass("tst");
+			}
+	    } 
+	    else if ($(this).hasClass('glyphicon-chevron-up')) {
+	    	obj.toggleClass("tst");
+
+	    	if (document.getElementById("downvoted").classList.contains('tst')) {
+				var downvoted = document.getElementById("downvoted");
+				$(downvoted).removeClass("tst");
+			}
+	    }
+	    else {
+	    	obj.toggleClass("tst");
+
+	    	if (document.getElementById("upvoted").classList.contains('tst')) {
+				var upvoted = document.getElementById("upvoted");
+				$(upvoted).removeClass("tst");
+			}
+	    }
+	})
+	$(".glyphicon-bookmark").click(function () {
+		var obj = $(this);
+		obj.toggleClass("marked");
+	})
+	$(".glyphicon-share-alt").click(function () {
+		var obj = $(this);
+		obj.toggleClass("marked");
+	})
 	</script>
 </body>
 </html>
