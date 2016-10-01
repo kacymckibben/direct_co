@@ -1,3 +1,26 @@
+<?php
+include('getSession.php');
+
+// LOAD INITIATIVES 
+$query = "SELECT * FROM initiative ORDER BY rank ASC";
+$initiativeQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+$INITIATIVES = array();
+while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
+	$ind =  $row['id'];
+	$INITIATIVES[$ind]['id']            = $row['id'];
+	$INITIATIVES[$ind]['creator_id']    = $row['creator_id']; 
+	$INITIATIVES[$ind]['rank']          = $row['rank'];      	
+	$INITIATIVES[$ind]['upvotes']       = $row['upvotes'];  	
+	$INITIATIVES[$ind]['downvotes']     = $row['downvotes']; 	
+	$INITIATIVES[$ind]['netvotes']      = $row['netvotes']; 	
+	$INITIATIVES[$ind]['ishidden']      = $row['ishidden']; 	
+	$INITIATIVES[$ind]['title']         = $row['title'];			
+	$INITIATIVES[$ind]['description']   = $row['description'];
+	$INITIATIVES[$ind]['page_id']       = $row['page_id']; 	
+	$INITIATIVES[$ind]['www']           = $row['www']; 		
+	$INITIATIVES[$ind]['creation_time'] = $row['creation_time'];
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +69,28 @@
 		</ul>
 	</nav>
 	<div class="container">
+		<?php
+		// POPULATE INITIATIVES
+
+		foreach($INITIATIVES as $initiative){
+			$id = $initiative['id'];        
+			$initiative['creator_id'];   
+			$initiative['rank'];         
+			$initiative['upvotes'];      
+			$initiative['downvotes'];    
+			$initiative['netvotes'];     
+			$initiative['ishidden'];     
+			$initiative['title'];        
+			$initiative['description'];  
+			$initiative['page_id'];      
+			$initiative['www'];          
+			$initiative['creation_time'];
+
+		}
+
+		?>
+
+
 		<div class="home-initiative">
 			<div class="row">
 				<div class="col-sm-2">
@@ -56,8 +101,8 @@
 				</div>
 				<div class="col-sm-10">
 					<small>Username </small><small>Date Posted</small>
-					<a href="initiative.html"><h4>Ballot Initiative Title</h4></a><a class="initiative-website" href="#"><small>Initiative Website</small></a>
-					<a href="initiative.html"><p>Short description of ballot initiative. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p></a>
+					<a href="initiative.php"><h4>Ballot Initiative Title</h4></a><a class="initiative-website" href="#"><small>Initiative Website</small></a>
+					<a href="initiative.php"><p>Short description of ballot initiative. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p></a>
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
 					<a href="#"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#sharemodal" aria-hidden="true"></span></a>
 				</div>
@@ -98,6 +143,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="ShareModal" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
