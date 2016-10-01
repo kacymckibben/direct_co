@@ -55,9 +55,11 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Direct Colorado</title>
 	<link rel="shortcut icon" href="favicon.ico?" type="image">
+	<!--<link rel="stylesheet" href="bootstrap.min.css">-->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="bootstrap.min.js"></script>-->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js_functions.js"></script>
 </head>
@@ -106,13 +108,13 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 			<div class="row">
 				<div class="col-sm-2">
 <<<<<<< HEAD
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> 124 Likes</span></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> <span class="like-font">124 Likes</span></span></a>
 					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> 35 Dislikes</span></a>
+					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> <span class="like-font">35 Dislikes</span></span></a>
 					<p>Total 159</p>
 =======
-					<a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span><p class="num-likes"> <?php echo $INITIATIVE['upvotes'];?> Likes</p></a>
-					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"></span><p class="num-likes"> <?php echo $INITIATIVE['downvotes'];?> Dislikes</p></a>
+					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up" aria-hidden="true"> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
+					<a class="dislike" href="#"><span class="glyphicon glyphicon-thumbs-down"> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
 					<p>Total <?php echo $INITIATIVE['netvotes'];?></p>
 >>>>>>> origin/master
 				</div>
@@ -122,7 +124,7 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 					<p><?php echo $INITIATIVE['description'];?></p><a href="#">Read more</a><br>
 					
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+					<a href="#" data-toggle="popover" title="Popover title" data-trigger="focus" data-content="And here's some amazing content. It's very engaging. Right?"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					<form>
 		                <div class="form-group">
 		                    <label for="comment">Your Comment</label>
@@ -412,6 +414,9 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
     $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
 
 });
+	$(document).ready(function(){
+    	$('[data-toggle="popover"]').popover(); 
+	});
 	$(".glyphicon").click(function () {
 	    var obj = $(this);
 	    if ($(this).hasClass('glyphicon-thumbs-up')) {
@@ -451,10 +456,10 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 		var obj = $(this);
 		obj.toggleClass("marked");
 	})
-	$(".glyphicon-share-alt").click(function () {
-		var obj = $(this);
-		obj.toggleClass("marked");
-	})
+	// $(".glyphicon-share-alt").click(function () {
+	// 	var obj = $(this);
+	// 	obj.toggleClass("marked");
+	// })
 	</script>
 </body>
 </html>

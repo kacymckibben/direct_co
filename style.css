@@ -183,29 +183,53 @@ input[type='checkbox']:checked.thumbs-up + label:before{
     content: "\e125";
     font-weight: 800;
 }*/
-
+.like-font {
+	font-family: Open Sans, sans-serif;
+}
 .glyphicon-thumbs-up:before{
     content:"\e125"; 
-    color: #7f8c8d; 
-    opacity: 0.5;
+    color: #6E7FA6; 
+    opacity: 0.8;
 }
-
 .glyphicon-thumbs-up.tst:before{
     content:"\e125"; 
-    color: #0067b5; 
+    color: #638b95; 
     opacity: 1;
 }
 .glyphicon-thumbs-down:before{
     content:"\e126"; 
-    color: #7f8c8d; 
-    opacity: 0.5;
+    color: #6E7FA6; 
+    opacity: 0.8;
 }
-
 .glyphicon-thumbs-down.tst:before{
     content:"\e126"; 
-    color: #ff0000; 
+    color: #6d6395; 
     opacity: 1;
 }
+
+/*-- upvote downvote --*/
+.glyphicon-chevron-up:before{
+    content:"\e113"; 
+    color: #6E7FA6; 
+    opacity: 0.8;
+}
+.glyphicon-chevron-up.tst:before{
+    content:"\e113"; 
+    color: #638b95; 
+    opacity: 1;
+}
+.glyphicon-chevron-down:before{
+    content:"\e114"; 
+    color: #6E7FA6; 
+    opacity: 0.8;
+}
+.glyphicon-chevron-down.tst:before{
+    content:"\e114"; 
+    color: #6d6395; 
+    opacity: 1;
+}
+
+/*-- bookmark --*/
 .glyphicon-bookmark:before {
 	content: "\e044";
 	opacity: 0.5;
