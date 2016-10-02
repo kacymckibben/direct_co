@@ -15,7 +15,7 @@ $creatorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . my
 $CREATOR = mysqli_fetch_array($creatorQuery);
 
 // LOAD COMMENTS
-$query = "SELECT * FROM comments WHERE initiative_id = $INITIATIVE_ID ORDER BY rank ASC";
+$query = "SELECT * FROM comments WHERE initiative_id = $INITIATIVE_ID ORDER BY netvotes DESC";
 $commmentQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 $COMMENTS = array();
 while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
 	$COMMENTS[$ind]['id']            = $row['id'];           
 	$COMMENTS[$ind]['initiative_id'] = $row['initiative_id'];
 	$COMMENTS[$ind]['user_id']       = $row['user_id'];      
-	$COMMENTS[$ind]['user_name']     = $row['user_name'];    
+	//$COMMENTS[$ind]['user_name']     = $row['user_name'];    
 	$COMMENTS[$ind]['parent_id']     = $row['parent_id'];   
 	$COMMENTS[$ind]['rank']          = $row['rank'];         
 	$COMMENTS[$ind]['upvotes']       = $row['upvotes'] ;     
@@ -35,15 +35,15 @@ while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
 }
 
 // LOAD COMMENT INDICES
-$query = "SELECT * FROM comment_id WHERE initiative_id = $INITIATIVE_ID";
-$commmentIndQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
-$COMMENT_INDEX = array();
-while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
+$query = "SELECT * FROM children_id WHERE initiative_id = $INITIATIVE_ID";
+$childrenIndQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+$CHILDREN_INDEX = array();
+while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	$ind =  $row['index'];
-	$COMMENT_INDEX[$ind]['index']         = $row['index'];     
-	$COMMENT_INDEX[$ind]['parent_id']     = $row['parent_id'];       
-	$COMMENT_INDEX[$ind]['initiative_id'] = $row['initiative_id'];
-	$COMMENT_INDEX[$ind]['child_id']      = $row['child_id'];      
+	$CHILDREN_INDEX[$ind]['index']         = $row['index'];     
+	$CHILDREN_INDEX[$ind]['parent_id']     = $row['parent_id'];       
+	$CHILDREN_INDEX[$ind]['initiative_id'] = $row['initiative_id'];
+	$CHILDREN_INDEX[$ind]['child_id']      = $row['child_id'];      
 }
 
 ?>
@@ -119,12 +119,12 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 					
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
 					<a href="#" data-toggle="popover" title="Popover title" data-trigger="focus" data-content="And here's some amazing content. It's very engaging. Right?"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-					<form>
+					<form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= "0">
 		                <div class="form-group">
 		                    <label for="comment">Your Comment</label>
 		                    <textarea name="comment" class="form-control" rows="2"></textarea>
 		                </div>
-		                <button type="submit" class="btn btn-ltblue">Save</button>
+		                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
 	                </form>
 					<br>
 					<div class="pull-right"> 
@@ -135,224 +135,98 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 				</div>
 			</div>
 		</div>
-		<div class="comment-1">
-			<div class="row">
-				<div class="col-sm-2 text-center">
-					<a href="#"><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-					<span>Net 89</span>
-					<a class="dislike" href="#"><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></a>
-				</div>
-				<div class="col-sm-10">
-					<small>Username </small><small>Date Posted</small>
-					<p>Comment 1 with a child. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum. <a href="#">Read more</a></p>
-					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-					<span>
-                        <a class="" role="button" data-toggle="collapse" href="#reply1" aria-expanded="false" aria-controls="reply1">Reply</a>
-                    </span>
-		            <div class="collapse" id="reply1">
-		                <form>
-			                <div class="form-group">
-			                    <label for="comment">Your Comment</label>
-			                    <textarea name="comment" class="form-control" rows="2"></textarea>
-			                </div>
-			                <button type="submit" class="btn btn-ltblue">Save</button>
-			                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls="reply1"><button type="submit" class="btn btn-default">Cancel</button></a>
-		                </form>
-		            </div>
-					<br>
-					<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 2 comments</a>
-				</div>
-			</div>
-		</div>
-		<div class="panel-collapse collapse" id="collapseExample">
-			<div class="comment-2">
-				<div class="row">
-					<div class="col-sm-2 text-center">
-						<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-						<p>Net 52</p>
-						<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-					</div>
-					<div class="col-sm-10">
-						<small>Username </small><small>Date Posted</small>
-						<p>Comment 2 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-						<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-						<span>
-	                        <a class="" role="button" data-toggle="collapse" href="#reply2" aria-expanded="false" aria-controls="reply2">Reply</a>
-	                    </span>
-			            <div class="collapse" id="reply2">
-			                <form>
-				                <div class="form-group">
-				                    <label for="comment">Your Comment</label>
-				                    <textarea name="comment" class="form-control" rows="2"></textarea>
-				                </div>
-				                <button type="submit" class="btn btn-ltblue">Save</button>
-				                <a href="#reply2" data-toggle="collapse" aria-expanded="false" aria-controls="reply2"><button type="submit" class="btn btn-default">Cancel</button></a>
-			                </form>
-			            </div>
-						<br>
-						<a data-toggle="collapse" href="#comment3" aria-expanded="false" aria-controls="comment3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 1 comment</a>
-					</div>
-				</div>
-			</div>
-			<div class="panel-collapse collapse" id="comment3">
-				<div class="comment-3">
+
+		<?php
+		$depth = 1; // comment level starts at 1 (for proper css indentations)
+
+		// LEVEL 0 COMMENTS (NO PARENTS) (depth = 1 (for proper css))
+		$parentID = 0;
+		$childrenArray = getChildrenArray($dbc, $parentID);
+		if(!empty($childrenArray)){
+			$childrenArray = getChildrenArray($dbc,$parentID );
+			displayChildren($COMMENTS, $INITIATIVE_ID, $childrenArray, $dbc , $depth);
+		}
+
+
+
+		function getChildrenArray($dbc, $parentID){
+			// Returns an array of a parent's children comments ($childrenArray)
+			// $parentID : parent id for which to get children comments
+			$query = "SELECT * FROM comments WHERE parent_id = $parentID ORDER BY netvotes DESC";
+			$childrenQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+			$childrenArray = array();
+			while ($comment = mysqli_fetch_array($childrenQuery, MYSQLI_ASSOC)) {
+				array_push($childrenArray, $comment);
+			}
+			return $childrenArray;
+		}
+
+		function displayChildren($COMMENTS, $INITIATIVE_ID, $childrenArray, $dbc , $depth){
+			// Recursive function that displays all children comments (and recursive subsequent children)
+			// $COMMENTS : Array of all comments for initiative (queried at beginning of page)
+			// $childrenArray : Array of children for current comment
+			// $dbc : database connection
+			// $depth : level of comments deep. 1 for first-level comments 
+			$commentClassString = '"comment-' . $depth . '"' ; // "comment-2" e.g. (comment indentation)
+			foreach($childrenArray as $childArray){
+				$commentor_id = $childArray['user_id'];
+				$query = "SELECT * FROM user WHERE id = $commentor_id";
+				$commentorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
+				$commentor = mysqli_fetch_array($commentorQuery);
+
+				$comment_id = $childArray['id'];
+				$commentReply = 'reply' . $comment_id ;
+				?>
+
+				<div class= <?php echo $commentClassString;?> >
 					<div class="row">
 						<div class="col-sm-2 text-center">
-							<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-							<p>Net 52</p>
-							<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+							<a href="#"><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+							<span>Net <?php echo $childArray['netvotes'];?></span>
+							<a class="dislike" href="#"><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></a>
 						</div>
 						<div class="col-sm-10">
-							<small>Username </small><small>Date Posted</small>
-							<p>Comment 3 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
+							<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
+							<p><?php echo $childArray['comment'];?><a href="#">Read more</a></p>
 							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
 							<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 							<span>
-		                        <a class="" role="button" data-toggle="collapse" href="#reply3" aria-expanded="false" aria-controls="reply3">Reply</a>
+		                        <a class="" role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
 		                    </span>
-				            <div class="collapse" id="reply3">
-				                <form>
+				            <div class="collapse" id=<?php echo '"' . $commentReply . '"' ;?>>
+				                <form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= <?php echo '"' . $comment_id . '"';?>>
 					                <div class="form-group">
 					                    <label for="comment">Your Comment</label>
 					                    <textarea name="comment" class="form-control" rows="2"></textarea>
 					                </div>
-					                <button type="submit" class="btn btn-ltblue">Save</button>
-					                <a href="#reply3" data-toggle="collapse" aria-expanded="false" aria-controls="reply3"><button type="submit" class="btn btn-default">Cancel</button></a>
+					                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
+					                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>><button type="submit" class="btn btn-default">Cancel</button></a>
 				                </form>
 				            </div>
 							<br>
-							<a data-toggle="collapse" href="#comment4" aria-expanded="false" aria-controls="comment4"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 1 comment</a>
+							<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 2 comments</a>
 						</div>
 					</div>
 				</div>
+
+				<?php
+				// DISPLAY ALL NESTED CHILDREN COMMENTS (CALL RECURSIVELY TO displayChildren())
+				$nestedChildrenComments = getChildrenArray($dbc, $comment_id);
+				if(!empty($nestedChildrenComments)){
+					displayChildren($COMMENTS, $INITIATIVE_ID, $nestedChildrenComments, $dbc, $depth+1);
+				}
+				
+			}
+
+		}
+
+		?>
+		<div class="panel-collapse collapse" id="collapseExample">
+			<div class="panel-collapse collapse" id="comment3">
 				<div class="panel-collapse collapse" id="comment4">
-					<div class="comment-4">
-						<div class="row">
-							<div class="col-sm-2 text-center">
-								<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-								<p>Net 52</p>
-								<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-							</div>
-							<div class="col-sm-10">
-								<small>Username </small><small>Date Posted</small>
-								<p>Comment 4 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-								<span>
-			                        <a class="" role="button" data-toggle="collapse" href="#reply4" aria-expanded="false" aria-controls="reply4">Reply</a>
-			                    </span>
-					            <div class="collapse" id="reply4">
-					                <form>
-						                <div class="form-group">
-						                    <label for="comment">Your Comment</label>
-						                    <textarea name="comment" class="form-control" rows="2"></textarea>
-						                </div>
-						                <button type="submit" class="btn btn-ltblue">Save</button>
-						                <a href="#reply4" data-toggle="collapse" aria-expanded="false" aria-controls="reply4"><button type="submit" class="btn btn-default">Cancel</button></a>
-					                </form>
-					            </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="comment-2">
-				<div class="row">
-					<div class="col-sm-2 text-center">
-						<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-						<p>Net 52</p>
-						<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-					</div>
-					<div class="col-sm-10">
-						<small>Username </small><small>Date Posted</small>
-						<p>Comment 2 with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-						<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-						<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-						<span>
-	                        <a class="" role="button" data-toggle="collapse" href="#reply5" aria-expanded="false" aria-controls="reply5">Reply</a>
-	                    </span>
-			            <div class="collapse" id="reply5">
-			                <form>
-				                <div class="form-group">
-				                    <label for="comment">Your Comment</label>
-				                    <textarea name="comment" class="form-control" rows="2"></textarea>
-				                </div>
-				                <button type="submit" class="btn btn-default">Save</button>
-				                <a href="#reply5" data-toggle="collapse" aria-expanded="false" aria-controls="reply5"><button type="submit" class="btn btn-default">Cancel</button></a>
-			                </form>
-			            </div>
-						<br>
-						<a data-toggle="collapse" href="#comment5" aria-expanded="false" aria-controls="comment5"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 1 comment</a>
-					</div>
 				</div>
 			</div>
 			<div class="panel-collapse collapse" id="comment5">
-				<div class="comment-3">
-					<div class="row">
-						<div class="col-sm-2 text-center">
-							<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-							<p>Net 52</p>
-							<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-						</div>
-						<div class="col-sm-10">
-							<small>Username </small><small>Date Posted</small>
-							<p>Comment with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-							<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-							<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-							<span>
-		                        <a class="" role="button" data-toggle="collapse" href="#reply6" aria-expanded="false" aria-controls="reply6">Reply</a>
-		                    </span>
-				            <div class="collapse" id="reply6">
-				                <form>
-					                <div class="form-group">
-					                    <label for="comment">Your Comment</label>
-					                    <textarea name="comment" class="form-control" rows="2"></textarea>
-					                </div>
-					                <button type="submit" class="btn btn-default">Save</button>
-					                <a href="#reply6" data-toggle="collapse" aria-expanded="false" aria-controls="reply6"><button type="submit" class="btn btn-default">Cancel</button></a>
-				                </form>
-				            </div>
-							<br>
-							<a data-toggle="collapse" href="#comment6" aria-expanded="false" aria-controls="comment6"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 1 comment</a>
-						</div>
-					</div>
-				</div>
-				<div class="panel-collapse collapse" id="comment6">
-					<div class="comment-4">
-						<div class="row">
-							<div class="col-sm-2 text-center">
-								<a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-								<p>Net 52</p>
-								<a class="dislike" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
-							</div>
-							<div class="col-sm-10">
-								<small>Username </small><small>Date Posted</small>
-								<p>Comment with a parent. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.</p>
-								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-								<span>
-			                        <a class="" role="button" data-toggle="collapse" href="#reply7" aria-expanded="false" aria-controls="reply7">Reply</a>
-			                    </span>
-					            <div class="collapse" id="reply7">
-					                <form>
-						                <div class="form-group">
-						                    <label for="comment">Your Comment</label>
-						                    <textarea name="comment" class="form-control" rows="2"></textarea>
-						                </div>
-						                <button type="submit" class="btn btn-default">Save</button>
-						                <a href="#reply7" data-toggle="collapse" aria-expanded="false" aria-controls="reply7"><button type="submit" class="btn btn-default">Cancel</button></a>
-					                </form>
-					            </div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -364,11 +238,11 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 				
 				if($(objectID).hasClass('in'))
 				{
-                                    $(objectID).collapse('hide');
+                	$(objectID).collapse('hide');
 				}
 				
 				else{
-                                    $(objectID).collapse('show');
+            		$(objectID).collapse('show');
 				}
                     });
                     
@@ -455,5 +329,37 @@ while ($row = mysqli_fetch_array($commmentIndQuery, MYSQLI_ASSOC)) {
 	// 	obj.toggleClass("marked");
 	// })
 	</script>
+
+	<script>
+	function submitComment(form)
+	{
+		// INITIATIVE ID IS PASSED VIA FORM.NAME
+		// PARENT ID IS PASSED VIA FORM.ID
+		// COMMENT IS PASSED BY FORM.COMMENT.VALUE
+
+		if(form.comment.value === ''){
+				return;
+		}else{
+			var comment = form.comment.value;
+			form.comment.value = '';
+			var initiative = form.name; 
+			var parent = form.id;
+
+			$.ajax({
+				type: "POST",
+				url: "comment_update.php",
+				data: { comment:    	comment,
+						initiative_id: 	initiative, 
+					    parent_id:  	parent,
+					   }
+				//success: function(msg){
+					//
+				//}
+			});
+		}
+	}
+
+	</script>
+
 </body>
 </html>

@@ -37,7 +37,7 @@ CREATE TABLE `direct_co`.`user` 					( 	`id`        	INT(11) NOT NULL AUTO_INCRE
 									  	PRIMARY KEY (	`id`) ) ENGINE = InnoDB;
 
 
-CREATE TABLE `direct_co`.`comment_id`				( 	`index`     	INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `direct_co`.`children_id`				( 	`index`     	INT(11) NOT NULL AUTO_INCREMENT,
 														`parent_id` 	INT(11) NOT NULL ,
 														`initiative_id` INT(11) NOT NULL ,
 														`child_id`  	INT(11) NOT NULL ,

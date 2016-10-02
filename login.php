@@ -52,7 +52,7 @@ if($_POST['login']) {
 
 			// WELCOME USER AND REDIRECT TO INITIATIVE PAGE
 			echo '<script>alert("Welcome, ' . $username . '");
-			 window.location.href="browse.html";
+			 window.location.href="browse.php";
 				</script>';
 		}else{
 			// ERROR: INCORRECT PASSWORD
