@@ -115,10 +115,10 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				<div class="col-sm-10">
 					<small><?php echo $CREATOR['username'];?></small><small><?php echo date('Y-m-d h:i:s',$INITIATIVE['creation_time']);?></small>
 					<h4><?php echo $INITIATIVE['title'];?></h4><a class="initiative-website" href="#"><?php echo $INITIATIVE['www'];?></a>
-					<p><?php echo $INITIATIVE['description'];?></p><a href="#">Read more</a><br>
+					<p><?php echo $INITIATIVE['description'];?></p><br>
 					
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#" data-toggle="popover" title="Popover title" data-trigger="focus" data-content="And here's some amazing content. It's very engaging. Right?"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+					<a href="#" data-toggle="popover" data-trigger="focus" data-content="<button>button</button>"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					<form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= "0">
 		                <div class="form-group">
 		                    <label for="comment">Your Comment</label>
@@ -177,62 +177,67 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				$comment_id = $childArray['id'];
 				$commentReply = 'reply' . $comment_id ;
 				?>
-
-				<div class= <?php echo $commentClassString;?> >
-					<div class="row">
-						<div class="col-sm-2 text-center">
-							<a href="#"><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-							<span>Net <?php echo $childArray['netvotes'];?></span>
-							<a class="dislike" href="#"><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></a>
-						</div>
-						<div class="col-sm-10">
-							<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
-							<p><?php echo $childArray['comment'];?><a href="#">Read more</a></p>
-							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-							<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
-							<span>
-		                        <a class="" role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
-		                    </span>
-				            <div class="collapse" id=<?php echo '"' . $commentReply . '"' ;?>>
-				                <form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= <?php echo '"' . $comment_id . '"';?>>
-					                <div class="form-group">
-					                    <label for="comment">Your Comment</label>
-					                    <textarea name="comment" class="form-control" rows="2"></textarea>
-					                </div>
-					                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
-					                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>><button type="submit" class="btn btn-default">Cancel</button></a>
-				                </form>
-				            </div>
-							<br>
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand 2 comments</a>
+					<div class= <?php echo $commentClassString;?> >
+						<div class="row">
+							<div class="vote col-sm-2 text-center">
+								<div class="dislike" ><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></div>
+								<span class="net-text">Net <?php echo $childArray['netvotes'];?></span>
+								<div class="dislike" ><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></div>
+							</div>
+							<div class="col-sm-10">
+								<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
+								<p><?php echo $childArray['comment'];?></p>
+								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
+								<span>
+			                        <a class="" role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
+			                    </span>
+					            <div class="collapse" id=<?php echo '"' . $commentReply . '"' ;?>>
+					                <form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= <?php echo '"' . $comment_id . '"';?>>
+						                <div class="form-group">
+						                    <label for="comment">Your Comment</label>
+						                    <textarea name="comment" class="form-control" rows="2"></textarea>
+						                </div>
+						                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
+						                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>><button type="submit" class="btn btn-default">Cancel</button></a>
+					                </form>
+					            </div>
+								<?php 
+								$nestedChildrenComments = getChildrenArray($dbc, $comment_id);
+								if(!empty($nestedChildrenComments)){
+									$href = 'collapse' . $comment_id; 
+									$numChildren = count($nestedChildrenComments);
+								?>
+									<br>
+									<a data-toggle="collapse" href=<?php echo '"#' . $href . '"';?> aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand <?php echo $numChildren;?> comments</a>
+								<?php
+								}
+								?>
+								
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<?php
-				// DISPLAY ALL NESTED CHILDREN COMMENTS (CALL RECURSIVELY TO displayChildren())
-				$nestedChildrenComments = getChildrenArray($dbc, $comment_id);
-				if(!empty($nestedChildrenComments)){
-					displayChildren($COMMENTS, $INITIATIVE_ID, $nestedChildrenComments, $dbc, $depth+1);
-				}
-				
+					<?php
+					// DISPLAY ALL NESTED CHILDREN COMMENTS (CALL RECURSIVELY TO displayChildren())
+					if(!empty($nestedChildrenComments)){
+					?>
+					<div class="poo">
+						<div class = "panel-collapse collapse" id = <?php echo '"' . $href . '"';?> >
+						<?php
+						displayChildren($COMMENTS, $INITIATIVE_ID, $nestedChildrenComments, $dbc, $depth+1);
+						?>
+						</div>
+					</div>
+					<?php
+					}
+				}	
 			}
-
-		}
-
 		?>
-		<div class="panel-collapse collapse" id="collapseExample">
-			<div class="panel-collapse collapse" id="comment3">
-				<div class="panel-collapse collapse" id="comment4">
-				</div>
-			</div>
-			<div class="panel-collapse collapse" id="comment5">
-			</div>
-		</div>
+
 	</div>
 	<script type="text/javascript">
-	$(function () {			
-                    $('a[data-toggle="collapse"]').on('click',function(){
+		$(function () {			
+            $('a[data-toggle="collapse"]').on('click',function(){
 				
 				var objectID=$(this).attr('href');
 				
@@ -244,28 +249,30 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				else{
             		$(objectID).collapse('show');
 				}
-                    });
+        });
                     
                     
-                    $('#expandAll').on('click',function(){
+                    // $('#expandAll').on('click',function(){
                         
-                        $('a[data-toggle="collapse"]').each(function(){
-                            var objectID=$(this).attr('href');
-                            if($(objectID).hasClass('in')===false)
-                            {
-                                 $(objectID).collapse('show');
-                            }
-                        });
-                    });
+                    //     $('a[data-toggle="collapse"]').each(function(){
+                    //         var objectID=$(this).attr('href');
+                    //         if($(objectID).hasClass('in')===false)
+                    //         {
+                    //              $(objectID).collapse('show');
+                    //         }
+                    //     });
+                    // });
                     
-                    $('#collapseAll').on('click',function(){
+                    // $('#collapseAll').on('click',function(){
                         
-                        $('a[data-toggle="collapse"]').each(function(){
-                            var objectID=$(this).attr('href');
-                            $(objectID).collapse('hide');
-                        });
-                    });
-                    
+                    //     $('a[data-toggle="collapse"]').each(function(){
+                    //         var objectID=$(this).attr('href');
+                    //         $(objectID).collapse('hide');
+                    //     });
+                    // });
+                    $('#expandAll').on('click',function() {
+                    	$('.poo .panel-collapse').collapse("toggle");
+                    })
 		});
 
 	$('[data-toggle="collapse"]').on('click', function() {
