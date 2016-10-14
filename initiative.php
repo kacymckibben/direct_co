@@ -58,6 +58,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	<!--<link rel="stylesheet" href="bootstrap.min.css">-->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link href="style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<!--<script type="text/javascript" src="bootstrap.min.js"></script>-->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -67,12 +68,12 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	<nav class="navbar">
 		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="browse.html">Browse</a></li>
+			<li><a href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
 			<?php
 			if($IS_LOGGED_IN){
 			?>
-				<li><a href="#">Start Initiative</a></li>
+				<li><a href="create_initiative.html">Start Initiative</a></li>
 				<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
 				<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
 				<li class="dropdown">
@@ -118,7 +119,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					<p><?php echo $INITIATIVE['description'];?></p><br>
 					
 					<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-					<a href="#" data-toggle="popover" data-trigger="focus" data-content="<button>button</button>"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+					<a href="#" class="share" data-toggle="popover" data-trigger="focus"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					<form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= "0">
 		                <div class="form-group">
 		                    <label for="comment">Your Comment</label>
@@ -177,12 +178,12 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				$comment_id = $childArray['id'];
 				$commentReply = 'reply' . $comment_id ;
 				?>
-					<div class= <?php echo $commentClassString;?> >
+					<div id=<?php echo '"' . $comment_id . '"' ;?> class= <?php echo $commentClassString;?> >
 						<div class="row">
 							<div class="vote col-sm-2 text-center">
-								<div class="dislike" ><span id="upvoted" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></div>
+								<div class="dislike" ><span id=<?php echo '"upvoted' . $comment_id . '"';?> class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></div>
 								<span class="net-text">Net <?php echo $childArray['netvotes'];?></span>
-								<div class="dislike" ><span id="downvoted" class="glyphicon glyphicon-chevron-down"></span></div>
+								<div class="dislike" ><span id=<?php echo '"downvoted' . $comment_id . '"';?> class="glyphicon glyphicon-chevron-down"></span></div>
 							</div>
 							<div class="col-sm-10">
 								<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
@@ -290,6 +291,8 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 
 });
 	$(document).ready(function(){
+		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';
+		$(".share").popover({animation:true, content:popcontent, html:true});
     	$('[data-toggle="popover"]').popover(); 
 	});
 	$(".glyphicon").click(function () {
@@ -312,17 +315,19 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	    } 
 	    else if ($(this).hasClass('glyphicon-chevron-up')) {
 	    	obj.toggleClass("tst");
+	    	var par_id = $(this).parent().parent().parent().parent().attr('id');
 
-	    	if (document.getElementById("downvoted").classList.contains('tst')) {
-				var downvoted = document.getElementById("downvoted");
+	    	if (document.getElementById("downvoted" + par_id).classList.contains('tst')) {
+				var downvoted = document.getElementById("downvoted" + par_id);
 				$(downvoted).removeClass("tst");
 			}
 	    }
-	    else {
+	    else if ($(this).hasClass('glyphicon-chevron-down')) {
 	    	obj.toggleClass("tst");
+	    	var par_id = $(this).parent().parent().parent().parent().attr('id');
 
-	    	if (document.getElementById("upvoted").classList.contains('tst')) {
-				var upvoted = document.getElementById("upvoted");
+	    	if (document.getElementById("upvoted" + par_id).classList.contains('tst')) {
+				var upvoted = document.getElementById("upvoted" + par_id);
 				$(upvoted).removeClass("tst");
 			}
 	    }

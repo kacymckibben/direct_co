@@ -239,6 +239,14 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	content: "\e044";
 	opacity: 1;
 }
+
+/*-- share --*/
+.fa {
+	padding: 0 3px 0 3px;
+}
+.glyphicon-envelope {
+	padding: 0 3px 0 3px;
+}
 .glyphicon-share-alt:before {
 	content: "\e095";
 	opacity: 0.5;

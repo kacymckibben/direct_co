@@ -35,6 +35,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	<title>Direct Colorado</title>
 	<link rel="shortcut icon" href="favicon.ico?" type="image">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link href="style.css" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -43,9 +44,9 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	<nav class="navbar">
 		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a class="active" href="#">Browse</a></li>
+			<li><a class="active" href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
-			<li><a href="#">Start Initiative</a></li>
+			<li><a href="create_initiative.html">Start Initiative</a></li>
 			<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
 			<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
 
@@ -104,7 +105,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 						<a href="initiative.php"><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
 						<a href="initiative.php"><p><?php echo $description;?></p></a>
 						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-						<a href="#"><span class="glyphicon glyphicon-share-alt" data-toggle="modal" data-target="#sharemodal" aria-hidden="true"></span></a>
+						<a href="#" class="share" data-toggle="popover" data-trigger="focus"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					</div>
 				</div>
 			</div>
@@ -112,16 +113,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 		}
 		?>
 	</div>
-	<div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="ShareModal" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<button>Email</button>
-					<button>Tweet</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<script type="text/javascript">
 	$(".glyphicon").click(function () {
 	    var obj = $(this);
@@ -142,14 +134,20 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 			}
 	    } 
 	})
+	
+	$(document).ready(function(){
+		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';
+		$(".share").popover({animation:true, content:popcontent, html:true});
+    	$('[data-toggle="popover"]').popover(); 
+	});
 	$(".glyphicon-bookmark").click(function () {
 		var obj = $(this);
 		obj.toggleClass("marked");
 	})
-	$(".glyphicon-share-alt").click(function () {
-		var obj = $(this);
-		obj.toggleClass("marked");
-	})
+	// $(".glyphicon-share-alt").click(function () {
+	// 	var obj = $(this);
+	// 	obj.toggleClass("marked");
+	// })
 	</script>
 </body>
 </html>
