@@ -129,9 +129,9 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	                </form>
 					<br>
 					<div class="pull-right"> 
-						<a id="expandAll" href="#"><span class="glyphicon glyphicon-plus"></span> Expand All</a>
+						<a id="expandAll" chref="#">Expand/Collapse All</a>
 
-	                	<a id="collapseAll" href="#"><span class="glyphicon glyphicon-minus"></span> Collapse All</a>
+	                	<!-- <a id="collapseAll" class="close-all" href="#"><span class="glyphicon glyphicon-minus"></span> Collapse All</a> -->
 	            	</div>
 				</div>
 			</div>
@@ -210,7 +210,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 									$numChildren = count($nestedChildrenComments);
 								?>
 									<br>
-									<a data-toggle="collapse" href=<?php echo '"#' . $href . '"';?> aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Expand <?php echo $numChildren;?> comments</a>
+									<a class="collapse-comment" data-toggle="collapse" href=<?php echo '"#' . $href . '"';?> aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo $numChildren;?> comments</a>
 								<?php
 								}
 								?>
@@ -274,6 +274,9 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
                     $('#expandAll').on('click',function() {
                     	$('.poo .panel-collapse').collapse("toggle");
                     })
+                    // $('#collapseAll').on('click',function() {
+                    // 	$('.poo .panel-collapse').collapse("toggle");
+                    // })
 		});
 
 	$('[data-toggle="collapse"]').on('click', function() {
@@ -281,6 +284,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
             $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
     if($parent === undefined) { /* Just toggle my  */
         $this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+
         return true;
     }
 
