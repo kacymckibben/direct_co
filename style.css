@@ -15,6 +15,9 @@ a {
 .text {
 	padding: 15px 5px 15px 15px;
 }
+.bold-text {
+	font-weight: 600;
+}
 .glyphicon {
 	color: #6E7FA6;
 }
@@ -27,7 +30,7 @@ a {
 	color: #fff;
 }
 .btn-ltblue {
-	background-color: #6E7FA6;
+	background-color: #35485f;
 	color: #fff;
 }
 .btn-ltblue:hover {
@@ -45,7 +48,17 @@ a {
 }
 
 .secondary-navbar {
-	background-color: #F4F5F7;
+	background-color: #232f3e;
+	color: #fff!important;
+}
+.secondary-navbar li > a {
+	color: #fff;
+}
+.secondary-navbar li > a:hover {
+	background-color: #2c3b4e;
+}
+.glyphicon-chevron-left {
+	color: #fff;
 }
 
 .profile-pic {
@@ -194,7 +207,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 }
 .glyphicon-thumbs-up.tst:before{
     content:"\e125"; 
-    color: #000080; 
+    color: #35485f; 
     opacity: 1;
 }
 .glyphicon-thumbs-down:before{
@@ -204,7 +217,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 }
 .glyphicon-thumbs-down.tst:before{
     content:"\e126"; 
-    color: #000080; 
+    color: #35485f; 
     opacity: 1;
 }
 
@@ -216,7 +229,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 }
 .glyphicon-chevron-up.tst:before{
     content:"\e113"; 
-    color: #000080; 
+    color: #35485f; 
     opacity: 1;
 }
 .glyphicon-chevron-down:before{
@@ -226,7 +239,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 }
 .glyphicon-chevron-down.tst:before{
     content:"\e114"; 
-    color: #000080; 
+    color: #35485f; 
     opacity: 1;
 }
 
@@ -236,6 +249,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	opacity: 0.5;
 }
 .glyphicon-bookmark.marked:before {
+	color: #35485f;
 	content: "\e044";
 	opacity: 1;
 }

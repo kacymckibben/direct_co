@@ -96,11 +96,11 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	</nav>
 	<nav class="navbar secondary-navbar">
 		<ul class="nav navbar-nav">
-			<li><a href="#">Back</a></li>
+			<li><a class="bold-text" href="#"><span class="glyphicon glyphicon-chevron-left"></span> Back</a></li>
 			<li class="text">More initiatives:</li>
-			<li><a href="#">Tagged with blah</a></li>
-			<li><a href="#">From username</a></li>
-			<li><a href="#">Around Abc City, CO</a></li>
+			<li><a class="bold-text" href="#">Tagged with blah</a></li>
+			<li><a class="bold-text" href="#">From username</a></li>
+			<li><a class="bold-text" href="#">Around Abc City, CO</a></li>
 		</ul>
 	</nav>
 	<div class="container">

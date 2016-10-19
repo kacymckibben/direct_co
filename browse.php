@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 </head>
 <body>
 	<nav class="navbar">
-		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
+		<div class="navbar-brand"><img class="img-responsive" src="img/logo-2.png" alt="logo" /></div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a class="active" href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
