@@ -4,7 +4,8 @@ September 2016 */
 
 body {
 	color: #161616;
-	font-family: Open Sans, sans-serif;
+	font-family: 'Roboto', Open Sans, sans-serif;
+	font-size: 14px;
 }
 nav.navbar {
 	margin-bottom: 0px;
@@ -43,6 +44,9 @@ a {
 .navbar-nav > li > a {
 	color: #161616;
 }
+.navbar-nav > li > a:hover {
+	background-color: #f0efee;
+}
 .active {
 	font-weight: 600;
 }
@@ -67,6 +71,10 @@ a {
 
 /*--- like/dislike ---*/
 
+.vote-text {
+	color: #161616;
+	font-family: 'Robot', sans-serif;
+}
 .radio input {
 	visibility: hidden;
 	position: absolute;
