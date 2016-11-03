@@ -11,6 +11,7 @@
 		$IS_LOGGED_IN: 	boolean, is logged in		
 		$IS_MOBILE:		boolean, is user on phone
 		$CURRENT_TIME: 	current time
+		$INITIATIVE_ID: initiative id of page user is currently on
 
 	Jake Turelli
 	Sept 11, 2016

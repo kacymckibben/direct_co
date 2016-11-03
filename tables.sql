@@ -44,5 +44,23 @@ CREATE TABLE `direct_co`.`children_id`				( 	`index`     	INT(11) NOT NULL AUTO_
 									  	PRIMARY KEY (	`index`) ) ENGINE = InnoDB;
 
 
+CREATE TABLE `direct_co`.`comment_likes`			( 	`id`        	INT(11) NOT NULL AUTO_INCREMENT,
+														`comment_id`    INT(11) NOT NULL ,
+														`user_id`   	INT(11) NOT NULL ,
+														`liked` 		INT(1)  NOT NULL , 
+									  					`timestamp` 	INT(11) NOT NULL , 
+									  	PRIMARY KEY (	`id`) ) ENGINE = InnoDB;
+
+
+CREATE TABLE `direct_co`.`initiative_likes`			( 	`id`        	INT(11) NOT NULL AUTO_INCREMENT,
+														`initiative_id` INT(11) NOT NULL ,
+														`user_id`   	INT(11) NOT NULL ,
+														`liked` 		INT(1)  NOT NULL , 
+									  					`timestamp` 	INT(11) NOT NULL , 
+									  	PRIMARY KEY (	`id`) ) ENGINE = InnoDB;
+
+
+
+
 INSERT INTO initiative (id,creator_id ,rank,upvotes,downvotes,netvotes,ishidden,title,description,page_id,www,creation_time) 
 		VALUES (1, 1, 1, 0,0,0,0,'Sample Initiative 1', 'Sample initiative 1 description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a iaculis enim, sed pretium arcu. Cras consectetur lectus eget eros sodales, aliquam ultrices lectus posuere. Maecenas eget sem vel odio lacinia faucibus. Praesent volutpat non libero eu viverra. Praesent consectetur gravida condimentum.', 'initiative.php', 'wikipedia.com', 1473642150)
