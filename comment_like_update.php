@@ -23,37 +23,40 @@ $result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_
 
 if (mysqli_num_rows($result)!=0){
 	$commentLike = mysqli_fetch_array($result);
-	$likeValue = $commentLike['liked'];
-	//
-	//
-	// THIS ALGORITHM NEEDS FIXING. IF $likeToggle != $likeValue, WE DON'T KNOW IF IT WAS LIKED/DISLIKE OR NEUTRAL BEFORE SO WE DON'T KNOW HOW TO UPDATE DOWNVOTES/UPVOTES. NEED TO THINK ABOUT THIS.
-	//
-	//
-	if ($likeToggle == $likeValue){
-		$newLikedToggle = 0; // toggle like or dislike to neutral
-		if($likeToggle==1){
-			$newUpvotes   = $newUpvotes   - 1;
-			$newNetvotes  = $newNetvotes  - 1;
-		}else{
-			$newDownvotes = $newDownvotes - 1;
-			$newNetvotes  = $newNetvotes  + 1;
-		}
-	}else{
-		$newLikedToggle = $likeToggle; // set likeToggle to updated value (1 for like, -1 for dislike)
-		if($likeToggle==1){
-			$newUpvotes   = $newUpvotes   + 1;
-			$newNetvotes  = $newNetvotes  + 1;
-		}else{
-			$newDownvotes = $newDownvotes + 1;
-			$newNetvotes  = $newNetvotes  - 1;
-		}
+	$likeValueWas = $commentLike['liked'];
 
+	if($likeValueWas==0){ // WAS NEUTRAL
+		if($likeToggle==1){ // LIKED
+			$newUpvotes  = $newUpvotes  + 1;
+			$newNetvotes = $newNetvotes + 1;
+		}else{ // DISLIKED
+			$newDownvotes  = $newDownvotes  + 1;
+			$newNetvotes   = $newNetvotes   - 1;
+		}
+		$newLikedToggle = $likeToggle;
+	}elseif($likeValueWas==1){ // WAS LIKED
+		if($likeToggle==1){ // UNLIKED
+			$newUpvotes  = $newUpvotes  - 1;
+			$newNetvotes = $newNetvotes - 1;
+			$newLikedToggle = 0;
+		}else{ // DISLIKED (FROM LIKED)
+			$newUpvotes    = $newUpvotes    - 1;
+			$newDownvotes  = $newDownvotes  + 1;
+			$newNetvotes   = $newNetvotes   - 2;
+			$newLikedToggle = -1;
+		}		
+	}else{ // WAS DISLIKED
+		if($likeToggle==1){ // LIKED (FROM DISLIKE)
+			$newUpvotes    = $newUpvotes    + 1;
+			$newDownvotes  = $newDownvotes  - 1;
+			$newNetvotes   = $newNetvotes   + 2;
+			$newLikedToggle = 1;
+		}else{ // UNDISLIKED 
+			$newDownvotes  = $newDownvotes  - 1;
+			$newNetvotes   = $newNetvotes   + 1;
+			$newLikedToggle = 0;
+		}			
 	}
-	//
-	//
-	//
-	//
-	//
 
 	$query = "UPDATE comment_likes SET liked = '$newLikedToggle' WHERE `comment_likes`.`comment_id` = '$comment_id' AND `comment_likes`.`user_id` = '$USER_ID'";
 	$updateLikedTable = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
