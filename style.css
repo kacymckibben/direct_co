@@ -68,6 +68,7 @@ a {
 
 .secondary-navbar {
 	background-color: #232f3e;
+	border-radius: 0!important;
 	color: #fff!important;
 }
 .secondary-navbar li > a {
@@ -386,4 +387,21 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 }
 .num-likes, .initiative-website {
 	display: inline;
+}
+
+/*=== Create Initiative ===*/
+.add-init-input, textarea {
+	width: 100%;
+}
+textarea {
+	border-color: rgb(238,238,238);
+	border-style: inset;
+	border-width: 1px;
+	padding: 1px;
+}
+.add-init-input {
+	margin-bottom: 10px;
+}
+#addInitiativeForm {
+	padding: 30px 0px;
 }

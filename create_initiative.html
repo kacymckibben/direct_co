@@ -18,7 +18,7 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
-			<li><a class="active" href="create_initiative.html">Start Initiative</a></li>
+			<li><a class="active" href="create_initiative.html">Create Initiative</a></li>
 			<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
 			<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
 
@@ -33,24 +33,26 @@
 		            <li><a href="#">Logout</a></li>
 		        </ul>
 			</li>
-			
 		</ul>
 	</nav>
-	<div class="container-fluid">
+	<nav class="navbar secondary-navbar">
+	</nav>
+	<div class="container">
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-4 col-sm-2"></div>
+			<div class="col-md-4 col-sm-8">
 				<form id = "addInitiativeForm" action = "initiative_add.php" method = "post">
 					<label>Initiative Name</label><br>
-					<input type="text" name = "name"></input><br>
+					<input class="add-init-input" type="text" name = "name"></input><br>
 					<label>Description</label><br>
 					<textarea rows="8" name = "description"></textarea><br>
 					<label>Website</label><br>
-					<input type="url" name = "website" onblur="checkURL(this)"></input><br>
+					<input class="add-init-input" type="url" name = "website" onblur="checkURL(this)"></input><br>
 					<button class="btn btn-ltblue">Submit</button>
 				</form>
 			</div>
+			<div class="col-md-4 col-sm-2"></div>
 		</div>
-		
 	</div>
 	<script type="text/javascript">
 		function checkURL (abc) {
