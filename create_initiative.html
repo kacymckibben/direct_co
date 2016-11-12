@@ -39,13 +39,13 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8">
-				<form>
+				<form id = "addInitiativeForm" action = "initiative_add.php" method = "post">
 					<label>Initiative Name</label><br>
-					<input type="text"></input><br>
+					<input type="text" name = "name"></input><br>
 					<label>Description</label><br>
-					<textarea rows="8"></textarea><br>
+					<textarea rows="8" name = "description"></textarea><br>
 					<label>Website</label><br>
-					<input type="text"></input><br>
+					<input type="url" name = "website" onblur="checkURL(this)"></input><br>
 					<button class="btn btn-ltblue">Submit</button>
 				</form>
 			</div>
@@ -53,6 +53,13 @@
 		
 	</div>
 	<script type="text/javascript">
-		
+		function checkURL (abc) {
+  			var string = abc.value;
+  			if (!~string.indexOf("http")) {
+    			string = "http://" + string;
+  			}
+  			abc.value = string;
+  			return abc
+		}
 	</script>
 </body>

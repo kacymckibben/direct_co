@@ -96,9 +96,31 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 			<div class="home-initiative">
 				<div class="row">
 					<div class="col-sm-2">
-						<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
+						<?php
+						// QUERY WHETHER USER LIKED/DISLIKED INITIATIVE. THIS WILL UPDATE THE THUMBS UP/DOWN TOGGLE. 
+						$query = "SELECT * FROM `initiative_likes` WHERE `initiative_likes`.`initiative_id` = '$id' AND `initiative_likes`.`user_id` = '$USER_ID'";
+						$result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+						if (mysqli_num_rows($result)!=0){
+							$initiativeLike = mysqli_fetch_array($result);
+							$initiativeLikeValue = $initiativeLike['liked'];
+							if($initiativeLikeValue == 1){ //LIKED
+								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up tst"';
+								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+							}elseif($initiativeLikeValue == -1){ //DISLIKED
+								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down tst"';
+							}else{ // NEITHER LIKED NOR DISLIKED
+								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+							}
+						}else{ // NEITHER LIKED NOR DISLIKED
+							$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+							$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+						}
+						?>
+						<a href="#"><span id="liked" class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
 						<br>
-						<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
+						<a href="#"><span id="disliked" class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
 						<p>Total <?php echo $netvotes;?></p>
 					</div>
 					<div class="col-sm-10">
@@ -120,7 +142,14 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	    var obj = $(this);
 	    if ($(this).hasClass('glyphicon-thumbs-up')) {
 	    	obj.toggleClass("tst");
-	    
+
+	    	$.ajax({
+				type: "POST",
+				url: "initiative_like_update.php",
+				data: { likeToggle: 1,
+					   }
+			});
+
 	        if (document.getElementById("disliked").classList.contains('tst')) {
 	        	var disliked = document.getElementById("disliked");
 	        	$(disliked).removeClass("tst");
@@ -128,7 +157,14 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	    }
 	    else {
 			obj.toggleClass("tst");
-		
+
+	    	$.ajax({
+				type: "POST",
+				url: "initiative_like_update.php",
+				data: { likeToggle: -1,
+					   }
+			});	
+				
 			if (document.getElementById("liked").classList.contains('tst')) {
 				var liked = document.getElementById("liked");
 				$(liked).removeClass("tst");
