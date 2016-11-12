@@ -2,7 +2,7 @@
 include('getSession.php');
 
 // LOAD INITIATIVES 
-$query = "SELECT * FROM initiative ORDER BY rank ASC";
+$query = "SELECT * FROM initiative ORDER BY upvotes DESC";
 $initiativeQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 $INITIATIVES = array();
 while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {

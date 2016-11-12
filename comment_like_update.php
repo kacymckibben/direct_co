@@ -66,6 +66,13 @@ if (mysqli_num_rows($result)!=0){
 }else{
 	$query = "INSERT INTO  `comment_likes` ( id, comment_id, user_id, liked, timestamp) VALUES (NULL, $comment_id, $USER_ID, $likeToggle,$CURRENT_TIME)";
 	$updateLikedTable = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+	if($likeToggle == 1){ // LIKED
+		$newUpvotes    = $newUpvotes    + 1;
+		$newNetvotes   = $newNetvotes   + 1;
+	}elseif($likeToggle == -1){ // DISLIKED
+		$newDownvotes  = $newDownvotes  + 1;
+		$newNetvotes   = $newNetvotes   - 1;
+	}
 
 }
 

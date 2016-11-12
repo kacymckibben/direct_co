@@ -180,7 +180,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		function getChildrenArray($dbc, $parentID){
 			// Returns an array of a parent's children comments ($childrenArray)
 			// $parentID : parent id for which to get children comments
-			$query = "SELECT * FROM comments WHERE parent_id = $parentID ORDER BY netvotes DESC";
+			$query = "SELECT * FROM comments WHERE parent_id = $parentID ORDER BY upvotes DESC";
 			$childrenQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 			$childrenArray = array();
 			while ($comment = mysqli_fetch_array($childrenQuery, MYSQLI_ASSOC)) {
