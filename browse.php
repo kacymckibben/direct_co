@@ -98,7 +98,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 			$www				= $initiative['www'];          
 			$creation_time		= $initiative['creation_time'];
 			?>
-			<div class="home-initiative">
+			<div id=<?php echo '"' . $id . '"' ;?> class="home-initiative">
 				<div class="row">
 					<div class="col-sm-2">
 						<?php
@@ -123,9 +123,9 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 							$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
 						}
 						?>
-						<a href="#"><span id="liked" class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
+						<a href="#"><span id=<?php echo '"liked"' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
 						<br>
-						<a href="#"><span id="disliked" class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
+						<a href="#"><span id=<?php echo '"disliked"' . #id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
 						<p>Total <?php echo $netvotes;?></p>
 					</div>
 					<div class="col-sm-10">
@@ -155,31 +155,35 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	    var obj = $(this);
 	    if ($(this).hasClass('glyphicon-thumbs-up')) {
 	    	obj.toggleClass("tst");
+	    	var par_id = $(this).parent().parent().parent().parent().attr('id');
 
 	    	$.ajax({
 				type: "POST",
 				url: "initiative_like_update.php",
 				data: { likeToggle: 1,
+						initiative_id: par_id,
 					   }
 			});
 
-	        if (document.getElementById("disliked").classList.contains('tst')) {
-	        	var disliked = document.getElementById("disliked");
+	        if (document.getElementById("disliked" + par_id).classList.contains('tst')) {
+	        	var disliked = document.getElementById("disliked" + par_id);
 	        	$(disliked).removeClass("tst");
 	        }
 	    }
 	    else {
 			obj.toggleClass("tst");
+			var par_id = $(this).parent().parent().parent().parent().attr('id');
 
 	    	$.ajax({
 				type: "POST",
 				url: "initiative_like_update.php",
 				data: { likeToggle: -1,
+						initiative_id: par_id,
 					   }
 			});	
 				
-			if (document.getElementById("liked").classList.contains('tst')) {
-				var liked = document.getElementById("liked");
+			if (document.getElementById("liked" + par_id).classList.contains('tst')) {
+				var liked = document.getElementById("liked" + par_id);
 				$(liked).removeClass("tst");
 			}
 	    } 
