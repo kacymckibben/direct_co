@@ -19,7 +19,7 @@ include('getSession.php');
 	<nav class="navbar">
 		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">Browse</a></li>
+			<li><a href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
 			<?php
 			if($IS_LOGGED_IN){
