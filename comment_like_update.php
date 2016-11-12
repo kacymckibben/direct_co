@@ -4,7 +4,7 @@ include('getSession.php');
 $likeToggle = $_POST['likeToggle'];
 $comment_id = $_POST['comment_id'];
 $CURRENT_TIME = time();
-//$INITIATIVE_ID = $_SESSION['INITIATIVE_ID'];
+
 
 // GET COMMENT INFO
 $query = "SELECT * FROM `comments` WHERE `comments`.`id` = '$comment_id'";
@@ -18,6 +18,7 @@ $newDownvotes = $downvotes;
 $newNetvotes  = $netvotes;
 
 
+// GET INFORMATION ON USER'S LIKE/DISLIKES OF COMMENT
 $query = "SELECT * FROM `comment_likes` WHERE `comment_likes`.`comment_id` = '$comment_id' AND `comment_likes`.`user_id` = '$USER_ID'";
 $result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
@@ -67,7 +68,6 @@ if (mysqli_num_rows($result)!=0){
 	$updateLikedTable = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
 }
-
 
 
 // UPDATE NUMBER OF LIKES FOR THE LIKED/DISLIKED COMMENT
