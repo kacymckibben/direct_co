@@ -47,22 +47,28 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 		<ul class="nav navbar-nav navbar-right">
 			<li><a class="active" href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
-			<li><a href="create_initiative.html">Start Initiative</a></li>
-			<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
-			<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
-
-			<li><a href="#">Sign up</a></li>
-			<li><a href="#">Login</a></li>
-
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="profile-pic" src="img/profile.png" alt="profile-pic" /> <span class="caret"></span></a>
-		        <ul class="dropdown-menu">
-		            <li><a href="#">Profile</a></li>
-		            <li><a href="#">Notifications</a></li>
-		            <li><a href="#">Logout</a></li>
-		        </ul>
-			</li>
-			
+			<?php
+			if($IS_LOGGED_IN){
+			?>
+				<li><a href="create_initiative.html">Start Initiative</a></li>
+				<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
+				<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="profile-pic" src="img/profile.png" alt="profile-pic" /> <span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			            <li><a href="#">Profile</a></li>
+			            <li><a href="#">Notifications</a></li>
+			            <li><a href="#">Logout</a></li>
+			        </ul>
+				</li>
+			<?php
+			}else{
+			?>		
+				<li><a href="#">Sign up</a></li>
+				<li><a href="#">Login</a></li>
+				<?php
+			}
+			?>
 		</ul>
 	</nav>
 	<nav class="navbar secondary-navbar">
