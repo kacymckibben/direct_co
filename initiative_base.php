@@ -2,6 +2,7 @@
 // UPDATE $_SESSION VARIABLE INITIATIVE_ID
 $_SESSION['INITIATIVE_ID'] = $INITIATIVE_ID;
 
+
 // LOAD INITIATIVE 
 $query = "SELECT * FROM initiative WHERE id = $INITIATIVE_ID";
 $initiativeQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
@@ -14,7 +15,7 @@ $creatorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . my
 $CREATOR = mysqli_fetch_array($creatorQuery);
 
 // LOAD COMMENTS
-$query = "SELECT * FROM comments WHERE initiative_id = $INITIATIVE_ID ORDER BY netvotes DESC";
+$query = "SELECT * FROM `comments` WHERE `comments`.`initiative_id` = $INITIATIVE_ID ORDER BY upvotes DESC";
 $commmentQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 $COMMENTS = array();
 while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
@@ -31,8 +32,8 @@ while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
 	$COMMENTS[$ind]['ishidden']      = $row['ishidden'];     
 	$COMMENTS[$ind]['comment']       = $row['comment']; 
 	$COMMENTS[$ind]['timestamp']     = $row['timestamp'];
-}
 
+}
 // LOAD COMMENT INDICES
 $query = "SELECT * FROM children_id WHERE initiative_id = $INITIATIVE_ID";
 $childrenIndQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
@@ -42,7 +43,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	$CHILDREN_INDEX[$ind]['index']         = $row['index'];     
 	$CHILDREN_INDEX[$ind]['parent_id']     = $row['parent_id'];       
 	$CHILDREN_INDEX[$ind]['initiative_id'] = $row['initiative_id'];
-	$CHILDREN_INDEX[$ind]['child_id']      = $row['child_id'];      
+	$CHILDREN_INDEX[$ind]['child_id']      = $row['child_id'];    
 }
 
 ?>
@@ -164,18 +165,18 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 
 		// LEVEL 0 COMMENTS (NO PARENTS) (depth = 1 (for proper css))
 		$parentID = 0;
-		$childrenArray = getChildrenArray($dbc, $parentID);
+		$childrenArray = getChildrenArray($dbc, $parentID, $INITIATIVE_ID);
 		if(!empty($childrenArray)){
-			$childrenArray = getChildrenArray($dbc,$parentID );
+			$childrenArray = getChildrenArray($dbc,$parentID, $INITIATIVE_ID);
 			displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $childrenArray, $dbc , $depth);
 		}
 
 
 
-		function getChildrenArray($dbc, $parentID){
+		function getChildrenArray($dbc, $parentID, $INITIATIVE_ID){
 			// Returns an array of a parent's children comments ($childrenArray)
 			// $parentID : parent id for which to get children comments
-			$query = "SELECT * FROM comments WHERE parent_id = $parentID ORDER BY upvotes DESC";
+			$query = "SELECT * FROM comments WHERE parent_id = $parentID AND initiative_id = $INITIATIVE_ID ORDER BY upvotes DESC";
 			$childrenQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 			$childrenArray = array();
 			while ($comment = mysqli_fetch_array($childrenQuery, MYSQLI_ASSOC)) {
@@ -250,7 +251,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					                </form>
 					            </div>
 								<?php 
-								$nestedChildrenComments = getChildrenArray($dbc, $comment_id);
+								$nestedChildrenComments = getChildrenArray($dbc, $comment_id, $INITIATIVE_ID);
 								if(!empty($nestedChildrenComments)){
 									$href = 'collapse' . $comment_id; 
 									$numChildren = count($nestedChildrenComments);

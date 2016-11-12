@@ -125,8 +125,8 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 					</div>
 					<div class="col-sm-10">
 						<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
-						<a href="initiative.php"><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
-						<a href="initiative.php"><p><?php echo $description;?></p></a>
+						<a href=<?php echo '"'. $page_id . '"';?>><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
+						<a href=<?php echo '"'. $page_id . '"';?>><p><?php echo $description;?></p></a>
 						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
 						<a href="#" class="share" data-toggle="popover" data-trigger="focus"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
 					</div>
@@ -138,6 +138,11 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	</div>
 	
 	<script type="text/javascript">
+	$(document).ready(function(){
+		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';
+		$(".share").popover({animation:true, content:popcontent, html:true});
+    	$('[data-toggle="popover"]').popover(); 
+	});
 	$(".glyphicon").click(function () {
 	    var obj = $(this);
 	    if ($(this).hasClass('glyphicon-thumbs-up')) {
@@ -172,11 +177,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	    } 
 	})
 	
-	$(document).ready(function(){
-		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';
-		$(".share").popover({animation:true, content:popcontent, html:true});
-    	$('[data-toggle="popover"]').popover(); 
-	});
+	
 	$(".glyphicon-bookmark").click(function () {
 		var obj = $(this);
 		obj.toggleClass("marked");
