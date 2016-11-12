@@ -3,7 +3,7 @@ Kacy McKibben & Jake Turelli
 September 2016 */
 
 body {
-	color: #161616;
+	color: #3C3C3C;
 	font-family: 'Roboto', Open Sans, sans-serif;
 	font-size: 14px;
 }
@@ -11,7 +11,10 @@ nav.navbar {
 	margin-bottom: 0px;
 }
 a {
-	color: #161616;
+	color: #3C3C3C;
+}
+.link {
+	text-decoration: underline;
 }
 .text {
 	padding: 15px 5px 15px 15px;
@@ -33,19 +36,31 @@ a {
 .btn-ltblue {
 	background-color: #35485f;
 	color: #fff;
+	font-weight: 300;
+	padding: 10px 15px;
 }
 .btn-ltblue:hover {
 	background-color: #8B98B7;
 	color: #fff;
 }
+.btn-transparent {
+	background-color: rgba(0,0,0,0);
+}
+.btn-transparent:hover {
+	background-color: rgba(255,255,255,0.1);
+}
 
 /*=== navbar ===*/
 
 .navbar-nav > li > a {
-	color: #161616;
+	color: #3C3C3C;
 }
 .navbar-nav > li > a:hover {
 	background-color: #f0efee;
+}
+.navbar-nav > li > a:focus {
+	background-color: transparent;
+	outline: none;
 }
 .active {
 	font-weight: 600;
@@ -72,7 +87,7 @@ a {
 /*--- like/dislike ---*/
 
 .vote-text {
-	color: #161616;
+	color: #3C3C3C;
 	font-family: 'Robot', sans-serif;
 }
 .radio input {
@@ -276,6 +291,57 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 .glyphicon-share-alt.marked:before {
 	content: "\e095";
 	opacity: 1;
+}
+
+
+/*=== Home Page ===*/
+.jumbotron {
+	background-image: url('img/heroimg.png');
+	background-position: center center;
+	background-size: cover;
+}
+.jumbotron-main-headline {
+	color: #fff!important;
+	font-size: 48px!important;
+	font-weight: 700;
+	padding-top: 80px;
+}
+.jumbotron-sub-headline {
+	color: #fff;
+	font-size: 20px;
+	font-weight: 300;
+	padding-top: 25px;
+	padding-bottom: 5px;
+}
+.jumbotron-search-input {
+	background: rgba(255,255,255,0.2);
+	border-color: rgba(255,255,255,0.3);
+	margin: 10px 5px 10px 40px;
+	padding: 5px;
+	width: 300px;
+}
+.jumbotron-search-input:focus {
+	outline: none;
+}
+.jumbotron-link {
+	color: #fff;
+	display: inline-block;
+	font-weight: 300;
+	margin: 20px;
+	padding: 10px 10px 0px 10px;
+}
+.jumbotron-link:hover {
+	color: rgba(255,255,255,0.5);
+}
+.search-icon-white {
+	color: #fff;
+}
+.row-color {
+	background-color: #f0efee;
+	padding: 40px 0px 30px 0px;
+}
+.row-white {
+	padding: 20px 0px 40px 0px;
 }
 
 /*=== Browse Page ===*/
