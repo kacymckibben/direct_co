@@ -30,7 +30,6 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 <html>
 <head>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Direct Colorado</title>
@@ -43,14 +42,14 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 </head>
 <body>
 	<nav class="navbar">
-		<div class="navbar-brand"><img class="img-responsive" src="img/logo-2.png" alt="logo" /></div>
+		<a href="index.php" class="navbar-brand"><img class="img-responsive" src="img/logo-2.png" alt="logo" /></a>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a class="active" href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
 			<?php
 			if($IS_LOGGED_IN){
 			?>
-				<li><a href="create_initiative.html">Start Initiative</a></li>
+				<li><a href="create_initiative.html">Create Initiative</a></li>
 				<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
 				<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
 				<li class="dropdown">
@@ -58,7 +57,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 			        <ul class="dropdown-menu">
 			            <li><a href="#">Profile</a></li>
 			            <li><a href="#">Notifications</a></li>
-			            <li><a href="#">Logout</a></li>
+			            <li><a href="logout.php">Logout</a></li>
 			        </ul>
 				</li>
 			<?php
@@ -142,7 +141,10 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 		}
 		?>
 	</div>
-	
+	<?php
+	include('login_signup_modal_content.html');
+	?>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';

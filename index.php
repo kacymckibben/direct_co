@@ -17,14 +17,14 @@ include('getSession.php');
 </head>
 <body>
 	<nav class="navbar">
-		<div class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></div>
+		<a href="index.php" class="navbar-brand"><img src="img/logo-2.png" alt="logo" /></a>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="browse.php">Browse</a></li>
 			<li><a href="#">Search</a></li>
 			<?php
 			if($IS_LOGGED_IN){
 			?>
-				<li><a href="#">Create Initiative</a></li>
+				<li><a href="create_initiative.html">Create Initiative</a></li>
 				<li><a href="#">Saved Initiatives</a></li><!--these are initiatives I've liked. Maybe also do one for created initatives-->
 				<li><a href="#">Owned Initiatives</a></li><!--only show if user has created at least one-->
 				<li class="dropdown">
@@ -106,72 +106,8 @@ include('getSession.php');
 			<div class="col-md-4 col-sm-2"></div>	
 		</div>
 	</div>
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
-		<div class="modal-dialog modal-sm" role="document">
-		    <div class="modal-content">
-		    	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel">Login</h4>
-		      	</div>
-		      	<div class="modal-body">
-			        <form id="loginform" role="form" action="login.php" method="post">
-						<fieldset class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" name="email" autocomplete="off" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<label>Password</label>
-							<input type="password" class="form-control" name="password" autocomplete="new-password" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<input type="submit" class="btn" name="login" value="LOGIN">
-						</fieldset>
-						<!-- <div class="border"></div>
-						<fieldset class="form-group form-inline">
-							<label>Don't have an account yet? </label>
-							<button type="button" class="btn-link" id="switchtosignup">Sign up</button>
-						</fieldset> -->
-					</form>
-		      	</div>
-		    </div>
-	  	</div>
-	</div>
-	<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModal">
-		<div class="modal-dialog modal-sm" role="document">
-		    <div class="modal-content">
-		    	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel">Sign up</h4>
-		      	</div>
-		      	<div class="modal-body">
-			        <form id="signupform" role="form" action="signup.php" method="post">
-						<fieldset class="form-group">
-							<label>Username</label>
-							<input type="text" class="form-control" name="username" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" name="email" autocomplete="off" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<label>Password</label>
-							<input type="password" id = "pass1" class="form-control" name="password" autocomplete="new-password" value="">
-						</fieldset>
-						<fieldset class="form-group">
-							<label>Confirm Password</label>
-							<input type="password" id="pass2" class="form-control" value="" onChange="checkPw();">
-						</fieldset>
-						<fieldset class="form-group">
-							<input type="submit" class="btn btn-ltblue" name="signup" value="SIGN UP">
-						</fieldset>
-					</form>
-		      	</div>
-		    </div>
-	  	</div>
-	</div>
+	<?php
+	include('login_signup_modal_content.html');
+	?>
 </body>
 </html>
