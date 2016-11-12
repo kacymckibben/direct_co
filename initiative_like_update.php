@@ -18,7 +18,7 @@ $newDownvotes = $downvotes;
 $newNetvotes  = $netvotes;
 
 
-// GET INFORMATION ON USER'S LIKE/DISLIKES OF COMMENT
+// GET INFORMATION ON USER'S LIKE/DISLIKES OF INITIATIVE
 $query = "SELECT * FROM `initiative_likes` WHERE `initiative_likes`.`initiative_id` = '$INITIATIVE_ID' AND `initiative_likes`.`user_id` = '$USER_ID'";
 $result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
@@ -70,8 +70,8 @@ if (mysqli_num_rows($result)!=0){
 }
 
 
-// UPDATE NUMBER OF LIKES FOR THE LIKED/DISLIKED COMMENT
+// UPDATE NUMBER OF LIKES FOR THE LIKED/DISLIKED INITIATIVE
 $query = "UPDATE initiative SET upvotes = '$newUpvotes' , downvotes = '$newDownvotes',  netvotes = '$newNetvotes' WHERE `initiative`.`id` = '$INITIATIVE_ID'";
-$updateComment = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+$updateInitiative = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
 ?>

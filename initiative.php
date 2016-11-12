@@ -113,9 +113,31 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		<div class="initiative">
 			<div class="row">
 				<div class="col-sm-2">
-					<a href="#"><span id="liked" class="glyphicon glyphicon-thumbs-up"> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
+				<?php
+				// QUERY WHETHER USER LIKED/DISLIKED INITIATIVE. THIS WILL UPDATE THE THUMBS UP/DOWN TOGGLE. 
+				$query = "SELECT * FROM `initiative_likes` WHERE `initiative_likes`.`initiative_id` = '$INITIATIVE_ID' AND `initiative_likes`.`user_id` = '$USER_ID'";
+				$result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+				if (mysqli_num_rows($result)!=0){
+					$initiativeLike = mysqli_fetch_array($result);
+					$initiativeLikeValue = $initiativeLike['liked'];
+					if($initiativeLikeValue == 1){ //LIKED
+						$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up tst"';
+						$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+					}elseif($initiativeLikeValue == -1){ //DISLIKED
+						$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+						$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down tst"';
+					}else{ // NEITHER LIKED NOR DISLIKED
+						$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+						$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+					}
+				}else{ // NEITHER LIKED NOR DISLIKED
+					$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+					$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+				}
+				?>
+					<a href="#"><span id="liked" class=<?php echo $initiativeLikeClass;?>> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
 					<br>
-					<a href="#"><span id="disliked" class="glyphicon glyphicon-thumbs-down"> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
+					<a href="#"><span id="disliked" class=<?php echo $initiativeDislikeClass;?>> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
 					<p>Total <?php echo $INITIATIVE['netvotes'];?></p>
 				</div>
 				<div class="col-sm-10">
@@ -150,7 +172,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		$childrenArray = getChildrenArray($dbc, $parentID);
 		if(!empty($childrenArray)){
 			$childrenArray = getChildrenArray($dbc,$parentID );
-			displayChildren($COMMENTS, $INITIATIVE_ID, $childrenArray, $dbc , $depth);
+			displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $childrenArray, $dbc , $depth);
 		}
 
 
@@ -167,9 +189,11 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 			return $childrenArray;
 		}
 
-		function displayChildren($COMMENTS, $INITIATIVE_ID, $childrenArray, $dbc , $depth){
+		function displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $childrenArray, $dbc , $depth){
 			// Recursive function that displays all children comments (and recursive subsequent children)
 			// $COMMENTS : Array of all comments for initiative (queried at beginning of page)
+			// $INITIATIVE_ID: Initiative ID
+			// $USER_ID: User ID
 			// $childrenArray : Array of children for current comment
 			// $dbc : database connection
 			// $depth : level of comments deep. 1 for first-level comments 
@@ -186,9 +210,31 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					<div id=<?php echo '"' . $comment_id . '"' ;?> class= <?php echo $commentClassString;?> >
 						<div class="row">
 							<div class="vote col-sm-2 text-center">
-								<div class="dislike" ><span id=<?php echo '"upvoted' . $comment_id . '"';?> class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></div>
+								<?php
+								// QUERY WHETHER USER LIKED/DISLIKED COMMENT. THIS WILL UPDATE THE CHEVRON UP/DOWN TOGGLE. 
+								$query = "SELECT * FROM `comment_likes` WHERE `comment_likes`.`comment_id` = '$comment_id' AND `comment_likes`.`user_id` = '$USER_ID'";
+								$commentLikeResult = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+								if (mysqli_num_rows($commentLikeResult)!=0){
+									$commentLike = mysqli_fetch_array($commentLikeResult);
+									$commentLikeValue = $commentLike['liked'];
+									if($commentLikeValue == 1){ //LIKED
+										$commentLikeClass    = '"glyphicon glyphicon-chevron-up tst"';
+										$commentDislikeClass = '"glyphicon glyphicon-chevron-down"';
+									}elseif($commentLikeValue == -1){ //DISLIKED
+										$commentLikeClass    = '"glyphicon glyphicon-chevron-up"';
+										$commentDislikeClass = '"glyphicon glyphicon-chevron-down tst"';
+									}else{ // NEITHER LIKED NOR DISLIKED
+										$commentLikeClass    = '"glyphicon glyphicon-chevron-up"';
+										$commentDislikeClass = '"glyphicon glyphicon-chevron-down"';
+									}
+								}else{ // NEITHER LIKED NOR DISLIKED
+									$commentLikeClass    = '"glyphicon glyphicon-chevron-up"';
+									$commentDislikeClass = '"glyphicon glyphicon-chevron-down"';
+								}
+								?>
+								<div class="dislike" ><span id=<?php echo '"upvoted' . $comment_id . '"';?> class=<?php echo $commentLikeClass;?> aria-hidden="true"></span></div>
 								<span class="net-text">Net <?php echo $childArray['netvotes'];?></span>
-								<div class="dislike" ><span id=<?php echo '"downvoted' . $comment_id . '"';?> class="glyphicon glyphicon-chevron-down"></span></div>
+								<div class="dislike" ><span id=<?php echo '"downvoted' . $comment_id . '"';?> class=<?php echo $commentDislikeClass;?>></span></div>
 							</div>
 							<div class="col-sm-10">
 								<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
@@ -230,7 +276,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					<div class="poo">
 						<div class = "panel-collapse collapse" id = <?php echo '"' . $href . '"';?> >
 						<?php
-						displayChildren($COMMENTS, $INITIATIVE_ID, $nestedChildrenComments, $dbc, $depth+1);
+						displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $nestedChildrenComments, $dbc, $depth+1);
 						?>
 						</div>
 					</div>
