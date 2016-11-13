@@ -18,6 +18,7 @@ session_unset ();
 $username  = $_POST['username'];
 $email     = $_POST['email'];
 $password  = $_POST['password'];
+$CURRENT_PAGE = $_SESSION['CURRENT_PAGE'];
 
 // THROW ALERT ERROR IF USERNAME INCLUDES SPECIAL CHARACTERS
 $SPECIAL_CHARACTERS = "/[\'^£$%&*()}{#~?><>,|=_+¬-]/";
@@ -51,9 +52,7 @@ if($_POST['login']) {
 			$result = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 
 			// WELCOME USER AND REDIRECT TO INITIATIVE PAGE
-			echo '<script>alert("Welcome, ' . $username . '");
-			 window.location.href="browse.php";
-				</script>';
+			echo '<script>window.location.href=' . $CURRENT_PAGE .  ';</script>';
 		}else{
 			// ERROR: INCORRECT PASSWORD
 			echo "<script>alert('Password incorrect.');
