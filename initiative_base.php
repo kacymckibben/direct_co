@@ -147,12 +147,10 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		                </div>
 		                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
 	                </form>
-					<br>
+					<!-- <br>
 					<div class="pull-right"> 
 						<a id="expandAll" href="#">Expand/Collapse All</a>
-
-	                	<!-- <a id="collapseAll" class="close-all" href="#"><span class="glyphicon glyphicon-minus"></span> Collapse All</a> -->
-	            	</div>
+	            	</div> -->
 				</div>
 			</div>
 		</div>
@@ -253,7 +251,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 									$numChildren = count($nestedChildrenComments);
 								?>
 									<br>
-									<a class="collapse-comment" data-toggle="collapse" href=<?php echo '"#' . $href . '"';?> aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> <?php echo $numChildren;?> comments</a>
+									<a class="collapse-comment" data-toggle="collapse" href=<?php echo '"#' . $href . '"';?> aria-expanded="true" aria-controls="collapseExample"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> <?php echo $numChildren;?> comments</a>
 								<?php
 								}
 								?>
@@ -266,7 +264,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					if(!empty($nestedChildrenComments)){
 					?>
 					<div class="all-children-comments">
-						<div class = "panel-collapse collapse" id = <?php echo '"' . $href . '"';?> >
+						<div class = "panel-collapse collapse in" id = <?php echo '"' . $href . '"';?> aria-expanded="true">
 						<?php
 						displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $nestedChildrenComments, $dbc, $depth+1);
 						?>
@@ -294,43 +292,26 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				}
         	});
                     
-                    
-                    // $('#expandAll').on('click',function(){
-                        
-                    //     $('a[data-toggle="collapse"]').each(function(){
-                    //         var objectID=$(this).attr('href');
-                    //         if($(objectID).hasClass('in')===false)
-                    //         {
-                    //              $(objectID).collapse('show');
-                    //         }
-                    //     });
-                    // });
-                    
-                    // $('#collapseAll').on('click',function(){
-                        
-                    //     $('a[data-toggle="collapse"]').each(function(){
-                    //         var objectID=$(this).attr('href');
-                    //         $(objectID).collapse('hide');
-                    //     });
-                    // });
-                    $('#expandAll').on('click',function() {
-                    	$('.all-children-comments .panel-collapse').collapse("toggle");
-                    })
-                    // $('#collapseAll').on('click',function() {
-                    // 	$('.poo .panel-collapse').collapse("toggle");
-                    // })
+            // $('#expandAll').on('click',function() {
+            // 	$('.all-children-comments .panel-collapse').collapse("toggle");
+            // 	var elements = document.getElementsByClassName('glyphicon');
+            // 	for (var i = 0; i < elements.length; i++) {
+            // 		if (elements[i].classList.contains('glyphicon-plus')) {
+            // 			elements[i].classList.add('glyphicon-minus');
+            // 			elements[i].classList.remove('glyphicon-plus');
+            // 		}
+            // 		else if (elements[i].classList.contains('glyphicon-minus')) {
+            // 			elements[i].classList.add('glyphicon-plus');
+            // 			elements[i].classList.remove('glyphicon-minus');
+            // 		}
+            // 	}
+            // })
 		});
 
 	$('[data-toggle="collapse"]').on('click', function() {
     	var $this = $(this),
         $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
-    	if($parent === undefined) { /* Just toggle my  */
-        	$this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
 
-        	return true;
-    	}
-
-	    /* Open element will be closed if parent !== undefined */
 	    var currentIcon = $this.find('.glyphicon');
 	    currentIcon.toggleClass('glyphicon-plus glyphicon-minus');
 	    $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
