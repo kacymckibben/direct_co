@@ -5,6 +5,8 @@ $comment       = $_POST['comment'];
 $initiative_id = $_POST['initiative_id'];
 $parent_id     = $_POST['parent_id']; // if parent_id is != 0, it is a sub comment
 
+$comment = addslashes($comment); // avoid sql injection
+
 $CURRENT_TIME = time();
 
 // INSERT COMMENT INTO DATABASE
