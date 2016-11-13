@@ -6,9 +6,9 @@ $description     = $_POST['description'];
 $website         = $_POST['website'];
 
 // properly handle characters to avoid sql injection
-$title  = addslashes($title); 
-$description  = addslashes($description); 
-$website  = addslashes($website); 
+$title       = addslashes($title); 
+$description = addslashes($description); 
+$website     = addslashes($website); 
 
 $temp_page_id = 'temp_id';
 $query = "INSERT INTO `initiative` (`id`, `creator_id`, `rank`  ,`upvotes`, `downvotes`, `netvotes`, `ishidden`, `title`, `description`, `page_id`     , `www`, `creation_time`) VALUES (NULL, '$USER_ID'  , '1'       ,'0'        , '0'          ,  '0'        ,     '0'     ,  '$title',  '$description' , '$temp_page_id' , '$website',  $CURRENT_TIME )";
