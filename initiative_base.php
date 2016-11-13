@@ -235,7 +235,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
 								<span>
-			                        <a class="" role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
+			                        <a role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
 			                    </span>
 					            <div class="collapse" id=<?php echo '"' . $commentReply . '"' ;?>>
 					                <form name = <?php echo '"' . $INITIATIVE_ID . '"';?> id= <?php echo '"' . $comment_id . '"';?>>
@@ -244,7 +244,6 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 						                    <textarea name="comment" class="form-control" rows="2"></textarea>
 						                </div>
 						                <button type="submit" class="btn btn-ltblue" onClick="submitComment(this.form)">Save</button>
-						                <a href="#reply1" data-toggle="collapse" aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>><button type="submit" class="btn btn-default">Cancel</button></a>
 					                </form>
 					            </div>
 								<?php 
