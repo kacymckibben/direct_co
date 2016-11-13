@@ -1,6 +1,5 @@
 <?php
 include('getSession.php');
-$_SESSION['CURRENT_PAGE'] = 'index.php';
 ?>
 <!DOCTYPE html>
 <html>
