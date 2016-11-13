@@ -277,7 +277,9 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				}	
 			}
 		?>
-
+		<?php
+		include('login_signup_modal_content.html');
+		?>
 	</div>
 
 	<script type="text/javascript">
