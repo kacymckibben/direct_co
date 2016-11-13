@@ -19,6 +19,11 @@ $username  = $_POST['username'];
 //$email     = $_POST['email']; // no longer using email
 $password  = $_POST['password'];
 
+// SQL INJECTION PROTECTION
+$username  = addslashes($username);
+//$email     = addslashes($email); // no longer using email
+$password  = addslashes($password);
+
 // THROW ALERT ERROR IF USERNAME INCLUDES SPECIAL CHARACTERS
 $SPECIAL_CHARACTERS = "/[\'^£$%&*()}{#~?><>,|=_+¬-]/";
 if(preg_match($SPECIAL_CHARACTERS, $username) ){

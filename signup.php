@@ -20,6 +20,11 @@ $username  = $_POST['username'];
 $email     = $_POST['email'];
 $password  = $_POST['password'];
 
+// SQL INJECTION PROTECTION
+$username  = addslashes($username);
+$email     = addslashes($email);
+$password  = addslashes($password);
+
 // THROW ALERT ERROR IF USERNAME INCLUDES SPECIAL CHARACTERS
 $SPECIAL_CHARACTERS = "/[\'^£$%&*()}{#~?><>,|=_+¬-]/";
 if(preg_match($SPECIAL_CHARACTERS, $username) ){
@@ -63,9 +68,7 @@ if($_POST['signup']) {
 		$_SESSION['IS_LOGGED_IN'] = true;
 
 		// REDIRECT TO INITIATIVE PAGE
-		echo "<script>alert('Welcome to Direct Colorado!');
-				 window.location.href='browse.html';
-					</script>";
+		echo "<script>window.location.href='browse.php';</script>";
 	}
 	
 }else{
