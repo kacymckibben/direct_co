@@ -131,7 +131,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					<a href="#"><span id="liked" class=<?php echo $initiativeLikeClass;?>> <span class="like-font"><?php echo $INITIATIVE['upvotes'];?> Likes</span></span></a>
 					<br>
 					<a href="#"><span id="disliked" class=<?php echo $initiativeDislikeClass;?>> <span class="like-font"><?php echo $INITIATIVE['downvotes'];?> Dislikes</span></span></a>
-					<p>Total <?php echo $INITIATIVE['netvotes'];?></p>
+					<p><span id="total">Total <?php echo $INITIATIVE['netvotes'];?></span></p>
 				</div>
 				<div class="col-sm-10">
 					<small><?php echo $CREATOR['username'];?></small><small><?php echo date('Y-m-d h:i:s',$INITIATIVE['creation_time']);?></small>
@@ -225,8 +225,8 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 									$commentDislikeClass = '"glyphicon glyphicon-chevron-down"';
 								}
 								?>
-								<div class="dislike" ><span id=<?php echo '"upvoted' . $comment_id . '"';?> class=<?php echo $commentLikeClass;?> aria-hidden="true"></span></div>
-								<span class="net-text">Net <?php echo $childArray['netvotes'];?></span>
+								<div class="like" ><span id=<?php echo '"upvoted' . $comment_id . '"';?> class=<?php echo $commentLikeClass;?> aria-hidden="true"></span></div>
+								<span class="net-text" id=<?php echo '"netvoted'.$comment_id.'"';?>>Net <?php echo $childArray['netvotes'];?></span>
 								<div class="dislike" ><span id=<?php echo '"downvoted' . $comment_id . '"';?> class=<?php echo $commentDislikeClass;?>></span></div>
 							</div>
 							<div class="col-sm-10">
@@ -353,7 +353,18 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				type: "POST",
 				url: "initiative_like_update.php",
 				data: { likeToggle: 1,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of numbers: 
+					// [upvotes downvotes netvotes initiative_id] 
+					upVotesString   = ' <span class="like-font">'+likeData[0]+ ' Likes</span>';
+					downVotesString = ' <span class="like-font">'+likeData[1]+ ' Dislikes</span>';
+					netVotesString  = 'Total ' + likeData[2];
+					$('#liked').html(upVotesString);
+					$('#disliked').html(downVotesString);
+					$('#total').html(netVotesString);
+				},
 			});
 	    
 	        if (document.getElementById("disliked").classList.contains('tst')) {
@@ -368,7 +379,18 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				type: "POST",
 				url: "initiative_like_update.php",
 				data: { likeToggle: -1,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of numbers: 
+					// [upvotes downvotes netvotes initiative_id]
+					upVotesString   = ' <span class="like-font">'+likeData[0]+ ' Likes</span>';
+					downVotesString = ' <span class="like-font">'+likeData[1]+ ' Dislikes</span>';
+					netVotesString  = 'Total ' + likeData[2];
+					$('#liked').html(upVotesString);
+					$('#disliked').html(downVotesString);
+					$('#total').html(netVotesString);
+				},
 			});
 		
 			if (document.getElementById("liked").classList.contains('tst')) {
@@ -385,7 +407,14 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				url: "comment_like_update.php",
 				data: { likeToggle: 1,
 					    comment_id: par_id,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of 2 numbers: 
+					// [netvotes, comment_id]
+					netVotedString  = 'Net ' + likeData[0];
+					$('#netvoted' + likeData[1]).html(netVotedString);
+				},
 			});
 
 	    	if (document.getElementById("downvoted" + par_id).classList.contains('tst')) {
@@ -402,7 +431,14 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				url: "comment_like_update.php",
 				data: { likeToggle: -1,
 					    comment_id: par_id,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of 3 numbers: 
+					// [upvotes downvotes netvotes]
+					netVotedString  = 'Net ' + likeData[0];
+					$('#netvoted' + likeData[1]).html(netVotedString);
+				},
 			});
 
 	    	if (document.getElementById("upvoted" + par_id).classList.contains('tst')) {
@@ -415,6 +451,8 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		var obj = $(this);
 		obj.toggleClass("marked");
 	})
+
+
 	// $(".glyphicon-share-alt").click(function () {
 	// 	var obj = $(this);
 	// 	obj.toggleClass("marked");

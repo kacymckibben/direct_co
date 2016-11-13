@@ -81,4 +81,9 @@ if (mysqli_num_rows($result)!=0){
 $query = "UPDATE comments SET upvotes = '$newUpvotes' , downvotes = '$newDownvotes',  netvotes = '$newNetvotes' WHERE `comments`.`id` = '$comment_id'";
 $updateComment = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
+
+// PASS JSON DATA OF UPDATED [NETVOTES COMMENT_ID]
+$returnData[] = $newNetvotes;
+$returnData[] = $comment_id;
+echo json_encode($returnData);
 ?>

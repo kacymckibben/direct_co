@@ -123,10 +123,10 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 							$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
 						}
 						?>
-						<a href="#"><span id=<?php echo '"liked"' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
+						<a href="#"><span id=<?php echo '"liked' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
 						<br>
-						<a href="#"><span id=<?php echo '"disliked"' . #id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
-						<p>Total <?php echo $netvotes;?></p>
+						<a href="#"><span id=<?php echo '"disliked' . $id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
+						<p><span id=<?php echo '"total'.$id.'"';?>>Total <?php echo $netvotes;?></span></p>
 					</div>
 					<div class="col-sm-10">
 						<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
@@ -162,7 +162,18 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 				url: "initiative_like_update.php",
 				data: { likeToggle: 1,
 						initiative_id: par_id,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of numbers: 
+					// [upvotes downvotes netvotes initiative_id] 
+					upVotesString   = '<span class="vote-text"> '+likeData[0]+ ' Likes</span>';
+					downVotesString = '<span class="vote-text"> '+likeData[1]+ ' Dislikes</span>';
+					netVotesString  = 'Total '+likeData[2];
+					$('#liked'+likeData[3]).html(upVotesString);
+					$('#disliked'+likeData[3]).html(downVotesString);
+					$('#total'+likeData[3]).html(netVotesString);
+				},
 			});
 
 	        if (document.getElementById("disliked" + par_id).classList.contains('tst')) {
@@ -179,7 +190,18 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 				url: "initiative_like_update.php",
 				data: { likeToggle: -1,
 						initiative_id: par_id,
-					   }
+					   },
+				dataType: 'json',
+				success: function(likeData){
+					// likeData is an array of numbers: 
+					// [upvotes downvotes netvotes initiative_id] 
+					upVotesString   = '<span class="vote-text"> '+likeData[0]+ ' Likes</span>';
+					downVotesString = '<span class="vote-text"> '+likeData[1]+ ' Dislikes</span>';
+					netVotesString  = 'Total '+likeData[2];
+					$('#liked'+likeData[3]).html(upVotesString);
+					$('#disliked'+likeData[3]).html(downVotesString);
+					$('#total'+likeData[3]).html(netVotesString);
+				},
 			});	
 				
 			if (document.getElementById("liked" + par_id).classList.contains('tst')) {

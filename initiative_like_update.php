@@ -3,7 +3,12 @@ include('getSession.php');
 
 $likeToggle = $_POST['likeToggle'];
 $CURRENT_TIME = time();
-$INITIATIVE_ID = $_SESSION['INITIATIVE_ID'];
+if(isset($_POST['initiative_id']) && !empty($_POST['initiative_id'])){
+	$INITIATIVE_ID = $_POST['initiative_id']; // INITIATIVE IS BEING LIKED FROM BROWSE PAGE
+}else{
+	$INITIATIVE_ID = $_SESSION['INITIATIVE_ID']; // INITIATIVE IS BEING LIKED FROM INITIATIVE PAGE
+}
+
 
 
 // GET INITIATIVE INFO
@@ -80,4 +85,11 @@ if (mysqli_num_rows($result)!=0){
 $query = "UPDATE initiative SET upvotes = '$newUpvotes' , downvotes = '$newDownvotes',  netvotes = '$newNetvotes' WHERE `initiative`.`id` = '$INITIATIVE_ID'";
 $updateInitiative = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
 
+
+// PASS JSON DATA OF UPDATED [UPVOTES DOWNVOTES NETVOTES INITIATIVE_ID]
+$returnData[] = $newUpvotes;
+$returnData[] = $newDownvotes;
+$returnData[] = $newNetvotes;
+$returnData[] = $INITIATIVE_ID;
+echo json_encode($returnData);
 ?>
