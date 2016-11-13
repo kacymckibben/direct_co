@@ -82,62 +82,74 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 	</nav>
 	<div class="container">
 		<?php
-		// POPULATE INITIATIVES
-		foreach($INITIATIVES as $initiative){
-			$id 				= $initiative['id'];        
-			$creator_id			= $initiative['creator_id'];   
-			$creator_username 	= $initiative['creator_username'];   
-			$rank				= $initiative['rank'];         
-			$upvotes 			= $initiative['upvotes'];      
-			$downvotes 			= $initiative['downvotes'];    
-			$netvotes 			= $initiative['netvotes'];     
-			$ishidden 			= $initiative['ishidden'];     
-			$title 				= $initiative['title'];        
-			$description		= $initiative['description'];  
-			$page_id			= $initiative['page_id'];      
-			$www				= $initiative['www'];          
-			$creation_time		= $initiative['creation_time'];
-			?>
-			<div id=<?php echo '"' . $id . '"' ;?> class="home-initiative">
+		if(empty($INITIATIVES)){
+		?>
+			<div class="home-initiative">
 				<div class="row">
-					<div class="col-sm-2">
-						<?php
-						// QUERY WHETHER USER LIKED/DISLIKED INITIATIVE. THIS WILL UPDATE THE THUMBS UP/DOWN TOGGLE. 
-						$query = "SELECT * FROM `initiative_likes` WHERE `initiative_likes`.`initiative_id` = '$id' AND `initiative_likes`.`user_id` = '$USER_ID'";
-						$result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
-						if (mysqli_num_rows($result)!=0){
-							$initiativeLike = mysqli_fetch_array($result);
-							$initiativeLikeValue = $initiativeLike['liked'];
-							if($initiativeLikeValue == 1){ //LIKED
-								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up tst"';
-								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
-							}elseif($initiativeLikeValue == -1){ //DISLIKED
-								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
-								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down tst"';
-							}else{ // NEITHER LIKED NOR DISLIKED
-								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
-								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
-							}
-						}else{ // NEITHER LIKED NOR DISLIKED
-							$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
-							$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
-						}
-						?>
-						<a href="#" onclick="return false;"><span id=<?php echo '"liked' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
-						<br>
-						<a href="#" onclick="return false;"><span id=<?php echo '"disliked' . $id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
-						<p><span id=<?php echo '"total'.$id.'"';?>>Total <?php echo $netvotes;?></span></p>
-					</div>
 					<div class="col-sm-10">
-						<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
-						<a href=<?php echo '"'. $page_id . '"';?>><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
-						<a href=<?php echo '"'. $page_id . '"';?>><p><?php echo $description;?></p></a>
-						<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-						<a href="#" class="share" data-toggle="popover" data-trigger="focus"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+						<h4>No initiatives have been created yet. Create one!</h4>
 					</div>
 				</div>
 			</div>
 		<?php
+		}else{
+			// POPULATE INITIATIVES
+			foreach($INITIATIVES as $initiative){
+				$id 				= $initiative['id'];        
+				$creator_id			= $initiative['creator_id'];   
+				$creator_username 	= $initiative['creator_username'];   
+				$rank				= $initiative['rank'];         
+				$upvotes 			= $initiative['upvotes'];      
+				$downvotes 			= $initiative['downvotes'];    
+				$netvotes 			= $initiative['netvotes'];     
+				$ishidden 			= $initiative['ishidden'];     
+				$title 				= $initiative['title'];        
+				$description		= $initiative['description'];  
+				$page_id			= $initiative['page_id'];      
+				$www				= $initiative['www'];          
+				$creation_time		= $initiative['creation_time'];
+				?>
+				<div id=<?php echo '"' . $id . '"';?> class="home-initiative">
+					<div class="row">
+						<div class="col-sm-2">
+							<?php
+							// QUERY WHETHER USER LIKED/DISLIKED INITIATIVE. THIS WILL UPDATE THE THUMBS UP/DOWN TOGGLE. 
+							$query = "SELECT * FROM `initiative_likes` WHERE `initiative_likes`.`initiative_id` = '$id' AND `initiative_likes`.`user_id` = '$USER_ID'";
+							$result = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+							if (mysqli_num_rows($result)!=0){
+								$initiativeLike = mysqli_fetch_array($result);
+								$initiativeLikeValue = $initiativeLike['liked'];
+								if($initiativeLikeValue == 1){ //LIKED
+									$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up tst"';
+									$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+								}elseif($initiativeLikeValue == -1){ //DISLIKED
+									$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+									$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down tst"';
+								}else{ // NEITHER LIKED NOR DISLIKED
+									$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+									$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+								}
+							}else{ // NEITHER LIKED NOR DISLIKED
+								$initiativeLikeClass    = '"glyphicon glyphicon-thumbs-up"';
+								$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
+							}
+							?>
+							<a href="#" onclick="return false;"><span id=<?php echo '"liked' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
+							<br>
+							<a href="#" onclick="return false;"><span id=<?php echo '"disliked' . $id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
+							<p><span id=<?php echo '"total'.$id.'"';?>>Total <?php echo $netvotes;?></span></p>
+						</div>
+						<div class="col-sm-10">
+							<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
+							<a href=<?php echo '"'. $page_id . '"';?>><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
+							<a href=<?php echo '"'. $page_id . '"';?>><p><?php echo $description;?></p></a>
+							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
+							<a href="#" class="share" data-toggle="popover" data-trigger="focus"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></a>
+						</div>
+					</div>
+				</div>
+			<?php
+			}
 		}
 		?>
 	</div>
