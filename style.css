@@ -9,7 +9,7 @@ Navigation
 Buttons
 Like Dislike Styles for Initiatives
 Upvote Downvote Styles for Comments
-Bookmark Comment and Share Comment Styles
+Bookmark, Ban and Share Comment Styles
 Home Page
 Browse Page
 Individual Initiative
@@ -233,7 +233,7 @@ a {
     opacity: 1;
 }
 
-/*--- Bookmark Comment and Share Comment Styles ---*/
+/*--- Bookmark, Ban and Share Comment Styles ---*/
 .glyphicon-bookmark:before {
 	content: "\e044";
 	opacity: 0.5;
@@ -241,6 +241,15 @@ a {
 .glyphicon-bookmark.marked:before {
 	color: #35485f;
 	content: "\e044";
+	opacity: 1;
+}
+.glyphicon-ban-circle:before {
+	content: "\e090";
+	opacity: 0.5;
+}
+.glyphicon-ban-circle.marked:before {
+	color: #35485f;
+	content: "\e090";
 	opacity: 1;
 }
 .fa {

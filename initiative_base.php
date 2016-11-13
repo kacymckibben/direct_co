@@ -429,6 +429,10 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		var obj = $(this);
 		obj.toggleClass("marked");
 	})
+	$(".glyphicon-ban-circle").click(function () {
+		var obj = $(this);
+		obj.toggleClass("marked");
+	})
 	</script>
 
 	<script>
