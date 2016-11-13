@@ -123,9 +123,9 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 							$initiativeDislikeClass = '"glyphicon glyphicon-thumbs-down"';
 						}
 						?>
-						<a href="#"><span id=<?php echo '"liked' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
+						<a href="#" onclick="return false;"><span id=<?php echo '"liked' . $id . '"';?> class=<?php echo $initiativeLikeClass;?>><span class="vote-text"> <?php echo $upvotes;?> Likes</span></span></a>
 						<br>
-						<a href="#"><span id=<?php echo '"disliked' . $id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
+						<a href="#" onclick="return false;"><span id=<?php echo '"disliked' . $id . '"';?> class=<?php echo $initiativeDislikeClass;?>><span class="vote-text"> <?php echo $downvotes;?> Dislikes</span></span></a>
 						<p><span id=<?php echo '"total'.$id.'"';?>>Total <?php echo $netvotes;?></span></p>
 					</div>
 					<div class="col-sm-10">
