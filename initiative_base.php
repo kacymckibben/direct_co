@@ -149,7 +149,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	                </form>
 					<br>
 					<div class="pull-right"> 
-						<a id="expandAll" chref="#">Expand/Collapse All</a>
+						<a id="expandAll" href="#">Expand/Collapse All</a>
 
 	                	<!-- <a id="collapseAll" class="close-all" href="#"><span class="glyphicon glyphicon-minus"></span> Collapse All</a> -->
 	            	</div>
@@ -265,7 +265,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					// DISPLAY ALL NESTED CHILDREN COMMENTS (CALL RECURSIVELY TO displayChildren())
 					if(!empty($nestedChildrenComments)){
 					?>
-					<div class="poo">
+					<div class="all-children-comments">
 						<div class = "panel-collapse collapse" id = <?php echo '"' . $href . '"';?> >
 						<?php
 						displayChildren($COMMENTS, $INITIATIVE_ID, $USER_ID, $nestedChildrenComments, $dbc, $depth+1);
@@ -282,19 +282,15 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 
 	<script type="text/javascript">
 		$(function () {			
-            $('a[data-toggle="collapse"]').on('click',function(){
-				
+            $('a[data-toggle="collapse"]').on('click',function() {
 				var objectID=$(this).attr('href');
-				
-				if($(objectID).hasClass('in'))
-				{
+				if($(objectID).hasClass('in')) {
                 	$(objectID).collapse('hide');
 				}
-				
-				else{
+				else {
             		$(objectID).collapse('show');
 				}
-        });
+        	});
                     
                     
                     // $('#expandAll').on('click',function(){
@@ -316,7 +312,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
                     //     });
                     // });
                     $('#expandAll').on('click',function() {
-                    	$('.poo .panel-collapse').collapse("toggle");
+                    	$('.all-children-comments .panel-collapse').collapse("toggle");
                     })
                     // $('#collapseAll').on('click',function() {
                     // 	$('.poo .panel-collapse').collapse("toggle");
@@ -324,20 +320,20 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		});
 
 	$('[data-toggle="collapse"]').on('click', function() {
-    var $this = $(this),
-            $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
-    if($parent === undefined) { /* Just toggle my  */
-        $this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+    	var $this = $(this),
+        $parent = typeof $this.data('parent')!== 'undefined' ? $($this.data('parent')) : undefined;
+    	if($parent === undefined) { /* Just toggle my  */
+        	$this.find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
 
-        return true;
-    }
+        	return true;
+    	}
 
-    /* Open element will be close if parent !== undefined */
-    var currentIcon = $this.find('.glyphicon');
-    currentIcon.toggleClass('glyphicon-plus glyphicon-minus');
-    $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+	    /* Open element will be closed if parent !== undefined */
+	    var currentIcon = $this.find('.glyphicon');
+	    currentIcon.toggleClass('glyphicon-plus glyphicon-minus');
+	    $parent.find('.glyphicon').not(currentIcon).removeClass('glyphicon-minus').addClass('glyphicon-plus');
 
-});
+	});
 	$(document).ready(function(){
 		var popcontent = '<span class="glyphicon glyphicon-envelope"></span><i class="fa fa-twitter" aria-hidden="true"></i><i class="fa fa-facebook" aria-hidden="true"></i><i class="fa fa-reddit" aria-hidden="true"></i>';
 		$(".share").popover({animation:true, content:popcontent, html:true});
@@ -450,12 +446,6 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		var obj = $(this);
 		obj.toggleClass("marked");
 	})
-
-
-	// $(".glyphicon-share-alt").click(function () {
-	// 	var obj = $(this);
-	// 	obj.toggleClass("marked");
-	// })
 	</script>
 
 	<script>
@@ -486,7 +476,6 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 			});
 		}
 	}
-
 	</script>
 
 </body>
