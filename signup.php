@@ -68,12 +68,12 @@ if($_POST['signup']) {
 		$_SESSION['IS_LOGGED_IN'] = true;
 
 		// REDIRECT TO INITIATIVE PAGE
-		echo "<script>window.location.href='browse.php';</script>";
+		echo "<script>window.location.href='index.php';</script>";
 	}
 	
 }else{
 	// ERROR: NO SIGNUP WAS PASSED BY $_POST
-	echo "<script>alert('How did you get here?');
+	echo "<script>alert('$_POST was not used.');
 				 window.location.href='index.php';
 					</script>";
 }
