@@ -63,8 +63,8 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 			<?php
 			}else{
 			?>		
-				<li><a href="#">Sign up</a></li>
-				<li><a href="#">Login</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
 				<?php
 			}
 			?>
