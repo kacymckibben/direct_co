@@ -52,6 +52,14 @@ CREATE TABLE `direct_co`.`comment_likes`			( 	`id`        	INT(11) NOT NULL AUTO
 									  	PRIMARY KEY (	`id`) ) ENGINE = InnoDB;
 
 
+CREATE TABLE `direct_co`.`comment_flags`			( 	`id`        	INT(11) NOT NULL AUTO_INCREMENT,
+														`comment_id`    INT(11) NOT NULL ,
+														`user_id`   	INT(11) NOT NULL ,
+														`flagged` 		INT(1)  NOT NULL , 
+									  					`timestamp` 	INT(11) NOT NULL , 
+									  	PRIMARY KEY (	`id`) ) ENGINE = InnoDB;
+
+
 CREATE TABLE `direct_co`.`initiative_likes`			( 	`id`        	INT(11) NOT NULL AUTO_INCREMENT,
 														`initiative_id` INT(11) NOT NULL ,
 														`user_id`   	INT(11) NOT NULL ,

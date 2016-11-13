@@ -15,7 +15,7 @@ $creatorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . my
 $CREATOR = mysqli_fetch_array($creatorQuery);
 
 // LOAD COMMENTS
-$query = "SELECT * FROM `comments` WHERE `comments`.`initiative_id` = $INITIATIVE_ID ORDER BY upvotes DESC";
+$query = "SELECT * FROM `comments` WHERE `comments`.`initiative_id` = $INITIATIVE_ID ORDER BY upvotes DESC, downvotes ASC";
 $commmentQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 $COMMENTS = array();
 while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
@@ -171,7 +171,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		function getChildrenArray($dbc, $parentID, $INITIATIVE_ID){
 			// Returns an array of a parent's children comments ($childrenArray)
 			// $parentID : parent id for which to get children comments
-			$query = "SELECT * FROM comments WHERE parent_id = $parentID AND initiative_id = $INITIATIVE_ID ORDER BY upvotes DESC";
+			$query = "SELECT * FROM comments WHERE parent_id = $parentID AND initiative_id = $INITIATIVE_ID ORDER BY upvotes DESC, downvotes ASC";
 			$childrenQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 			$childrenArray = array();
 			while ($comment = mysqli_fetch_array($childrenQuery, MYSQLI_ASSOC)) {
