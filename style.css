@@ -1,20 +1,26 @@
-/* Direct Colorado
-Kacy McKibben & Jake Turelli
-September 2016 */
+/* Direct Colorado, Joshua Maynard
+Authors: Kacy McKibben & Jake Turelli
+Author URI: www.kacymckibben.com
+September 2016 
 
+Table of Contents:
+General
+Navigation
+Buttons
+Like Dislike Styles for Initiatives
+Upvote Downvote Styles for Comments
+Bookmark Comment and Share Comment Styles
+Home Page
+Browse Page
+Individual Initiative
+Create Initiative Page
+*/
+
+/*--- General ---*/
 body {
 	color: #3C3C3C;
 	font-family: 'Roboto', Open Sans, sans-serif;
 	font-size: 14px;
-}
-nav.navbar {
-	margin-bottom: 0px;
-}
-a {
-	color: #3C3C3C;
-}
-.link {
-	text-decoration: underline;
 }
 .text {
 	padding: 15px 5px 15px 15px;
@@ -22,9 +28,52 @@ a {
 .bold-text {
 	font-weight: 600;
 }
+a {
+	color: #3C3C3C;
+}
+.link {
+	text-decoration: underline;
+}
 .glyphicon {
 	color: #6E7FA6;
 }
+
+/*--- Navigation ----*/
+.navbar {
+	margin-bottom: 0px;
+}
+.navbar-nav > li > a {
+	color: #3C3C3C;
+}
+.navbar-nav > li > a:hover {
+	background-color: #f0efee;
+}
+.navbar-nav > li > a:focus {
+	background-color: transparent;
+	outline: none;
+}
+.active {
+	font-weight: 600;
+}
+.secondary-navbar {
+	background-color: #232f3e;
+	border-radius: 0!important;
+	color: #fff!important;
+}
+.secondary-navbar li > a {
+	color: #fff;
+}
+.secondary-navbar li > a:hover {
+	background-color: #2c3b4e;
+}
+.glyphicon-chevron-left {
+	color: #fff;
+}
+.profile-pic {
+	width: 20px;
+}
+
+/*--- Buttons ---*/
 .btn {
 	background-color: #1E3362;
 	color: #fff;
@@ -50,124 +99,77 @@ a {
 	background-color: rgba(255,255,255,0.1);
 }
 
-/*=== navbar ===*/
-
-.navbar-nav > li > a {
-	color: #3C3C3C;
-}
-.navbar-nav > li > a:hover {
-	background-color: #f0efee;
-}
-.navbar-nav > li > a:focus {
-	background-color: transparent;
-	outline: none;
-}
-.active {
-	font-weight: 600;
-}
-
-.secondary-navbar {
-	background-color: #232f3e;
-	border-radius: 0!important;
-	color: #fff!important;
-}
-.secondary-navbar li > a {
-	color: #fff;
-}
-.secondary-navbar li > a:hover {
-	background-color: #2c3b4e;
-}
-.glyphicon-chevron-left {
-	color: #fff;
-}
-
-.profile-pic {
-	width: 20px;
-}
-
-/*--- like/dislike ---*/
-
+/*--- Like Dislike Styles for Initiatives ---*/
 .vote-text {
 	color: #3C3C3C;
 	font-family: 'Robot', sans-serif;
 }
 .radio input {
-	visibility: hidden;
 	position: absolute;
+	visibility: hidden;
 }
 .radio input:checked {
 	color: #000;
 }
-
-/*.input-hidden {
-  position: absolute;
-  left: -9999px;
-}
-
-input[type=radio]:checked + label>img {
-  border: 1px solid #fff;
-  box-shadow: 0 0 3px 3px #090;
-}*/
-
 .vote {
 	float: left;
-	width: 72px;
 	height: 36px;
+	list-style: none;
 	margin: 0;
 	padding: 0;
-	list-style: none;
+	width: 72px;
 }
 .vote_item {
 	float: left;
-	position: relative;
+	height: 36px;
 	margin: 0;
 	padding: 0;
+	position: relative;
 	width: 36px;
-	height: 36px;
 }
 .vote_control {
-	z-index: 1;
+	height: 36px;
+	left: 0;
+	line-height: 1;
+	margin: 0;
+	opacity: 0;
+	padding: 0;
 	position: absolute;
 	top: 0;
-	left: 0;
 	width: 36px;
-	height: 36px;
-	padding: 0;
-	margin: 0;
-	line-height: 1;
-	opacity: 0;
+	z-index: 1;
 }
 .vote_content {
-	position: absolute;
-	overflow: hidden;
+	border: 0;
 	clip: rect(0,0,0,0);
-	width: 1px;
 	height: 1px;
 	margin: -1px;
+	overflow: hidden;
 	padding: 0;
-	border: 0;
+	position: absolute;
+	width: 1px;
 }
 .vote_label {
-	position: relative;
-	margin: 0;
-	width: 36px;
-	height: 36px;
-	display: block;
-	color: transparent;
-	cursor: pointer;
-	border: 1px solid #ccc;
 	background-image: url(vote.svg);
 	background-repeat: no-repeat;
 	background-size: 72px 72px;
+	border: 1px solid #ccc;
+	color: transparent;
+	cursor: pointer;
+	display: block;
+	height: 36px;
+	margin: 0;
+	position: relative;
+	width: 36px;
 }
 .vote_label--upvote {
-	border-radius: 3px 0 0 3px;
 	background-position: 0 0;
+	border-radius: 3px 0 0 3px;
 }
 .vote_label--downvote {
-	border-radius: 0 3px 3px 0;
-	border-left: 0;
 	background-position: 0 -36px;
+	border-left: 0;
+	border-radius: 0 3px 3px 0;
 }
 .vote_control:focus + .vote_label,
 .vote_control:hover + .vote_label,
@@ -183,91 +185,53 @@ input[type=radio]:checked + label>img {
 .vote_control:checked + .vote_label--downvote {
 	background-position: -36px -36px;
 }
-.vote_control:disabled {
-	
-}
-
-
-/*input[type='checkbox'].thumbs-up + label:before,
-input[type='checkbox'].thumbs-up + label:after {
-	color:#000;
-	font-family: 'Glyphicons Halflings';
-	font-family: bold;
-}
-input[type='checkbox'].thumbs-up + label:before {
-	content: "\e125";
-}
-input[type='checkbox']:checked.thumbs-up + label:before {
-	content: "\e126";
-}*/
-
-/*input[type='checkbox'].thumbs-up + label:before{
-	position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: 300;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-input[type='checkbox'].thumbs-up + label:before{
-	color: #999;
-    content: "\e125";
-}
-input[type='checkbox']:checked.thumbs-up + label:before{
-	color: #000;
-    content: "\e125";
-    font-weight: 800;
-}*/
 .like-font {
 	font-family: Open Sans, sans-serif;
 }
 .glyphicon-thumbs-up:before{
-    content:"\e125"; 
-    color: #6E7FA6; 
+	color: #6E7FA6;
+    content:"\e125";
     opacity: 0.8;
 }
 .glyphicon-thumbs-up.tst:before{
-    content:"\e125"; 
-    color: #35485f; 
+    color: #35485f;
+    content:"\e125";
     opacity: 1;
 }
 .glyphicon-thumbs-down:before{
-    content:"\e126"; 
-    color: #6E7FA6; 
+    color: #6E7FA6;
+    content:"\e126";
     opacity: 0.8;
 }
 .glyphicon-thumbs-down.tst:before{
-    content:"\e126"; 
-    color: #35485f; 
+    color: #35485f;
+    content:"\e126";
     opacity: 1;
 }
 
-/*-- upvote downvote --*/
+/*--- Upvote Downvote Styles for Comments ---*/
 .glyphicon-chevron-up:before{
-    content:"\e113"; 
-    color: #6E7FA6; 
+    color: #6E7FA6;
+    content:"\e113";
     opacity: 0.8;
 }
 .glyphicon-chevron-up.tst:before{
-    content:"\e113"; 
-    color: #35485f; 
+    color: #35485f;
+    content:"\e113";
     opacity: 1;
 }
 .glyphicon-chevron-down:before{
-    content:"\e114"; 
-    color: #6E7FA6; 
+    color: #6E7FA6;
+    content:"\e114";
     opacity: 0.8;
 }
 .glyphicon-chevron-down.tst:before{
-    content:"\e114"; 
-    color: #35485f; 
+    color: #35485f;
+    content:"\e114";
     opacity: 1;
 }
 
-/*-- bookmark --*/
+/*--- Bookmark Comment and Share Comment Styles ---*/
 .glyphicon-bookmark:before {
 	content: "\e044";
 	opacity: 0.5;
@@ -277,8 +241,6 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	content: "\e044";
 	opacity: 1;
 }
-
-/*-- share --*/
 .fa {
 	padding: 0 3px 0 3px;
 }
@@ -294,8 +256,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	opacity: 1;
 }
 
-
-/*=== Home Page ===*/
+/*--- Home Page ---*/
 .jumbotron {
 	background-image: url('img/heroimg.png');
 	background-position: center center;
@@ -311,8 +272,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	color: #fff;
 	font-size: 20px;
 	font-weight: 300;
-	padding-top: 25px;
-	padding-bottom: 5px;
+	padding: 25px 0px 5px 0px;
 }
 .jumbotron-search-input {
 	background: rgba(255,255,255,0.2);
@@ -345,14 +305,12 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	padding: 20px 0px 40px 0px;
 }
 
-/*=== Browse Page ===*/
-
+/*--- Browse Page ---*/
 .home-initiative {
 	padding: 10px;
 }
 
-/*=== Initiative Page ===*/
-
+/*--- Individual Initiative ---*/
 .initiative {
 	padding: 25px 0px 15px 0px;
 }
@@ -381,7 +339,6 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 .comment-6 {
 	margin: 10px 0px 0px 250px;
 }
-
 .dislike {
 	display: block;
 }
@@ -389,7 +346,7 @@ input[type='checkbox']:checked.thumbs-up + label:before{
 	display: inline;
 }
 
-/*=== Create Initiative ===*/
+/* Create Initiative Page */
 .add-init-input, textarea {
 	width: 100%;
 }
