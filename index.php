@@ -99,7 +99,7 @@ include('getSession.php');
 						<input type="password" id="pass2" class="form-control" value="" onChange="checkPw();">
 					</fieldset>
 					<fieldset class="form-group">
-						<input type="submit" class="btn btn-ltblue" name="signup" value="SIGN UP">
+						<input type="submit" class="btn btn-large btn-ltblue" name="signup" value="SIGN UP">
 					</fieldset>
 				</form>
 			</div>

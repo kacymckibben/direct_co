@@ -82,11 +82,13 @@ a {
 	background-color: #344771;
 	color: #fff;
 }
+.btn-large {
+	padding: 10px 15px;
+}
 .btn-ltblue {
 	background-color: #35485f;
 	color: #fff;
 	font-weight: 300;
-	padding: 10px 15px;
 }
 .btn-ltblue:hover {
 	background-color: #8B98B7;
