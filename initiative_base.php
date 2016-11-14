@@ -1,7 +1,7 @@
 <?php
 // UPDATE $_SESSION VARIABLE INITIATIVE_ID
 $_SESSION['INITIATIVE_ID'] = $INITIATIVE_ID;
-
+$GLOBALS['DATE_FORMAT'] = 'D M j, Y \a\t g:i a';
 
 // LOAD INITIATIVE 
 $query = "SELECT * FROM initiative WHERE id = $INITIATIVE_ID";
@@ -134,7 +134,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 					<p><span id="total">Total <?php echo $INITIATIVE['netvotes'];?></span></p>
 				</div>
 				<div class="col-sm-10">
-					<small><?php echo $CREATOR['username'];?></small><small><?php echo date('Y-m-d h:i:s',$INITIATIVE['creation_time']);?></small>
+					<small><?php echo $CREATOR['username'];?></small><small><?php echo date($GLOBALS['DATE_FORMAT'],$INITIATIVE['creation_time']);?></small>
 					<h4><?php echo $INITIATIVE['title'];?></h4><a class="initiative-website" href="#"><?php echo $INITIATIVE['www'];?></a>
 					<p><?php echo $INITIATIVE['description'];?></p><br>
 					
@@ -227,7 +227,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 								<div class="dislike" ><span id=<?php echo '"downvoted' . $comment_id . '"';?> class=<?php echo $commentDislikeClass;?>></span></div>
 							</div>
 							<div class="col-sm-10">
-								<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
+								<small><?php echo $commentor['username'];?> </small><small><?php echo date($GLOBALS['DATE_FORMAT'],$childArray['timestamp']);?></small>
 								<p><?php echo $childArray['comment'];?></p>
 								<?php
 								// QUERY FOR FLAGGED COMMENT BY USER

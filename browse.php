@@ -1,5 +1,6 @@
 <?php
 include('getSession.php');
+$GLOBALS['DATE_FORMAT'] = 'D M j, Y \a\t g:i a';
 
 // LOAD INITIATIVES 
 $query = "SELECT * FROM initiative ORDER BY upvotes DESC, downvotes ASC";
@@ -140,7 +141,7 @@ while ($row = mysqli_fetch_array($initiativeQuery, MYSQLI_ASSOC)) {
 							<p><span id=<?php echo '"total'.$id.'"';?>>Total <?php echo $netvotes;?></span></p>
 						</div>
 						<div class="col-sm-10">
-							<small><?php echo $creator_username;?></small><small><?php echo date('Y-m-d h:i:s',$creation_time);?></small>
+							<small><?php echo $creator_username;?></small><small> <?php echo date($GLOBALS['DATE_FORMAT'],$creation_time);?></small>
 							<a href=<?php echo '"'. $page_id . '"';?>><h4><?php echo $title;?></h4></a><a class="initiative-website" href="#"><small><?php echo $www;?></small></a>
 							<a href=<?php echo '"'. $page_id . '"';?>><p><?php echo $description;?></p></a>
 							<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
