@@ -245,8 +245,8 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 									$commentFlagClass = '"glyphicon glyphicon-ban-circle"';
 								}
 								?>
-								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-								<a href="#"><span id=<?php echo '"flag'.$comment_id. '" class='. $commentFlagClass;?> aria-hidden="true"></span></a>
+								<a href="#" onClick="return false;"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
+								<a href="#" onClick="return false;"><span id=<?php echo '"flag'.$comment_id. '" class='. $commentFlagClass;?> aria-hidden="true"></span></a>
 								<span>
 			                        <a role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
 			                    </span>
