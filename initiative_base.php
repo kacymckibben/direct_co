@@ -15,7 +15,7 @@ $creatorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . my
 $CREATOR = mysqli_fetch_array($creatorQuery);
 
 // LOAD COMMENTS
-$query = "SELECT * FROM `comments` WHERE `comments`.`initiative_id` = $INITIATIVE_ID ORDER BY upvotes DESC, downvotes ASC";
+$query = "SELECT * FROM `comments` WHERE `comments`.`initiative_id` = $INITIATIVE_ID AND ishidden = 0 ORDER BY upvotes DESC, downvotes ASC";
 $commmentQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 $COMMENTS = array();
 while ($row = mysqli_fetch_array($commmentQuery, MYSQLI_ASSOC)) {
@@ -171,7 +171,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 		function getChildrenArray($dbc, $parentID, $INITIATIVE_ID){
 			// Returns an array of a parent's children comments ($childrenArray)
 			// $parentID : parent id for which to get children comments
-			$query = "SELECT * FROM comments WHERE parent_id = $parentID AND initiative_id = $INITIATIVE_ID ORDER BY upvotes DESC, downvotes ASC";
+			$query = "SELECT * FROM comments WHERE parent_id = $parentID AND initiative_id = $INITIATIVE_ID AND ishidden = 0 ORDER BY upvotes DESC, downvotes ASC";
 			$childrenQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 			$childrenArray = array();
 			while ($comment = mysqli_fetch_array($childrenQuery, MYSQLI_ASSOC)) {
@@ -194,7 +194,6 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 				$query = "SELECT * FROM user WHERE id = $commentor_id";
 				$commentorQuery = mysqli_query($dbc,$query) or die ("Error in query: $query " . mysqli_error($dbc));
 				$commentor = mysqli_fetch_array($commentorQuery);
-
 				$comment_id = $childArray['id'];
 				$commentReply = 'reply' . $comment_id ;
 				?>
@@ -230,8 +229,24 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 							<div class="col-sm-10">
 								<small><?php echo $commentor['username'];?> </small><small><?php echo date('Y-m-d h:i:s',$childArray['timestamp']);?></small>
 								<p><?php echo $childArray['comment'];?></p>
+								<?php
+								// QUERY FOR FLAGGED COMMENT BY USER
+								$query = "SELECT * FROM `comment_flags` WHERE `comment_flags`.`comment_id` = '$comment_id' AND `comment_flags`.`user_id` = '$USER_ID'";
+								$commentFlagResult = mysqli_query($dbc, $query) or die ("Error in query: $query " . mysqli_error($dbc));
+								if (mysqli_num_rows($commentFlagResult)!=0){
+									$commentFlag = mysqli_fetch_array($commentFlagResult);
+									$flagValue = $commentFlag['flagged'];
+									if($flagValue==1){
+										$commentFlagClass = '"glyphicon glyphicon-ban-circle marked"';
+									}else{
+										$commentFlagClass = '"glyphicon glyphicon-ban-circle"';
+									}
+								}else{
+									$commentFlagClass = '"glyphicon glyphicon-ban-circle"';
+								}
+								?>
 								<a href="#"><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>
+								<a href="#"><span id=<?php echo '"flag'.$comment_id. '" class='. $commentFlagClass;?> aria-hidden="true"></span></a>
 								<span>
 			                        <a role="button" data-toggle="collapse" href= <?php echo '"#' . $commentReply . '"' ;?> aria-expanded="false" aria-controls=<?php echo '"' . $commentReply . '"' ;?>>Reply</a>
 			                    </span>
@@ -255,7 +270,7 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 								<?php
 								}
 								?>
-								
+							
 							</div>
 						</div>
 					</div>
@@ -432,6 +447,14 @@ while ($row = mysqli_fetch_array($childrenIndQuery, MYSQLI_ASSOC)) {
 	$(".glyphicon-ban-circle").click(function () {
 		var obj = $(this);
 		obj.toggleClass("marked");
+		var par_id = $(this).parent().parent().parent().parent().attr('id');
+
+		$.ajax({
+			type: "POST",
+			url: "comment_flag_update.php",
+			data: { comment_id: par_id,
+				   },
+		});
 	})
 	</script>
 
